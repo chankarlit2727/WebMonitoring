@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Monitoring</title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="knockout-3.5.1.js"></script>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+    <style>
+    .container{
+        position: relative;
+        display: grid;
+        width: 800px;
+        left: 330px;
+        grid-template:
+           'sidebar navbar navbar '
+           'sidebar middle right '
+           'sidebar middle right ';
+        grid-template-rows: 20px 1fr 70px;
+        grid-template-columns: 10px 25px 1fr;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+
+    }
+
+    .sidebar{
+        grid-area: sidebar;
+        background-color:#28A745;
+        text-align:center;
+        padding-top: 7px;
+        border-top-left-radius: 4.2px;
+        border-bottom-left-radius: 4.2px;
+
+     }
+     .navbar{
+        grid-area: navbar;
+        background-color:#808080;
+        text-align:center;
+        border-top-right-radius: 4.2px;
+
+     }
+     .middle{
+        grid-area: middle;
+        background-color:#ccc;
+        text-align:center;
+     }
+     .right{
+        grid-area: right;
+        background-color:#777;
+        text-align:center;
+        border-bottom-right-radius: 4.2px;
+     }
+
+    .fa-play{
+        position: relative;
+        color: #28A745;
+        right: 381px;
+        font-size: 11px;
+    }
+    .play_text{
+        position:relative;
+        right: 350px;
+        bottom: 27px;
+        color: #28A745;
+        font-size: 12px;
+    }
+
+    .SelectMovieId{
+        position: relative;
+        bottom: 55px;
+        right: 230px;
+        height: 15px;
+        width: 150px;
+        background-color: transparent;
+        color: #99CCFF;
+        font-size:10px;
+    }
+
+    .fa-plug{
+        position: relative;
+        color: #28A745;
+        font-size: 12px;
+        padding-bottom: 10px;
+    }
+    .fa-circle{
+        position: relative;
+        color: #28A745;
+        font-size: 12px;
+        padding-bottom: 10px;
+    }
+    .fa-calendar-week{
+        position: relative;
+        color: #28A745;
+        font-size: 12px;
+        padding-bottom: 10px;
+    }
+    .fa-chromecast{
+        position: relative;
+        color: #28A745;
+        font-size: 12px;
+    }
+
+    .spl{
+        position: relative;
+        float: left;
+    }
+
+    .current_clip{
+        position: relative;
+        float: left;
+    }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar"></div>
+    <div class="navbar">
+        <i class="fa-solid fa-play"></i>
+        <p class="play_text">Playing</p>
+        <select class="SelectMovieId" data-bind="options:movieViewModel, optionsText:'name', optionsValue:'name'"></select>
+    </div>
+    <div class="middle">
+        <i class="fa-solid fa-plug"></i><br>
+        <i class="fa-solid fa-circle"></i></i><br/>
+        <i class="fa-solid fa-calendar-week"></i><br/>
+        <i class="fab fa-chromecast"></i>
+    </div>
+
+    <div class="right" data-bind="template:{name:'firstMovie', data:movieViewModel}">
+    </div>
+</div>
+
+<template id="firstMovie">
+    <span class="spl" data-bind="text:spl"></span><br/>
+    <span class="current_clip" data-bind="text:current_clip"></span><br/>
+    <span class="current_playtime" data-bind="text:current_playtime"></span>
+    <span class="playtime_left" data-bind="text:playtime_left"></span><br/>
+    <span class="playing_progress" data-bind="text:playing_progress"></span><br/>
+    <span class="update_time" data-bind="text:update_time"></span><br/>
+    <span class="next_show_spl" data-bind="text:next_show_spl"></span>
+    <span class="next_show_time" data-bind="text:next_show_time"></span><br/>
+</template>
+
+<script>
+    function Movie(name,spl, c_clip, c_playtime, pt_left, p_progress, update_t, next_spl, next_time){
+        this.name = name;
+        this.spl = spl;
+        this.current_clip = c_clip;
+        this.current_playtime = c_playtime;
+        this.playtime_left = pt_left;
+        this.playing_progress = p_progress;
+        this.update_time = update_t;
+        this.next_show_spl = next_spl;
+        this.next_show_time = next_time;
+    }
+    function MovieViewModel(){
+        this.name = ko.observable("12厅");
+        this.spl = ko.observable("[2D] 珠峰队长2D-国语_1715_20220715_12厅");
+        this.current_clip = ko.observable("ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV");
+        this.current_playtime = ko.observable("00:27:22");
+        this.playtime_left = ko.observable("-00:58:15");
+        this.playing_progress = ko.observable("31.9641814288495");
+        this.update_time = ko.observable("17:40:56");
+        this.next_show_spl = ko.observable("隐入尘烟2D-国语_1900_20220715_12厅");
+        this.next_show_time = ko.observable("00:01:17:29");
+    }
+
+    var movieViewModel = new MovieViewModel();
+    ko.applyBindings();
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+    "id": "d79d7374-95d8-4a52-ae64-ba157dcaf0cd",
+    "name": "12厅",
+    "update_time": "17:40:56",
+    "status": "playing",
+    "connection": true,
+    "ping": true,
+    "scheduler_mode": true,
+    "playbackInfo": {
+        "spl": "[2D] 珠峰队长2D-国语_1715_20220715_12厅",
+        "current_clip": "ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV",
+        "next_show_spl": "隐入尘烟2D-国语_1900_20220715_12厅",
+        "next_show_time": "00:01:17:29",
+        "current_playtime": "00:27:22",
+        "playtime_left": "-00:58:15",
+        "playing_progress": 31.9641814288495,
+        "current_clip_index": "7",
+        "total_clips": "8",
+        "liveplay": true,
+        "lms_enable": true,
+        "is_clip_exist_both": true
+    },
+    "server": {
+        "serial": "A71419",
+        "software": "17.00-build72",
+        "os": "OS-SR1K-1.0.0",
+        "freespace": "1.9 TB",
+        "usedspace": "1.7 TB",
+        "capacity": "3.6 TB",
+        "storageusage": 47,
+        "storagecolorlevel": 1,
+        "raidstatus": ""
+    },
+    "projector0": {
+        "id": "de524405-09e4-4fa6-82c2-fea75cccc546",
+        "name": "122",
+        "strpower": "ON",
+        "powerstatus": true,
+        "lampstatus": true,
+        "dowserstatus": true,
+        "channel": "1",
+        "lamphours": "9471hr",
+        "lamphourscolor": 0,
+        "available": true,
+        "connection": true
+    },
+    "projector1": {
+        "id": "de524405-09e4-4fa6-82c2-fea75cccc546",
+        "name": "122",
+        "strpower": "ON",
+        "powerstatus": true,
+        "lampstatus": true,
+        "dowserstatus": true,
+        "channel": "1",
+        "lamphours": "9471hr",
+        "lamphourscolor": 0,
+        "available": true,
+        "connection": true
+    },
+    "audio": {
+        "id": "ed7824dd-6086-4ac7-b927-0ee7fc994894",
+        "input": "1",
+        "level": "6.0",
+        "mute": "OFF",
+        "decode": "N/A",
+        "format": "N/A",
+        "available": true,
+        "connection": true
+    }
+}
