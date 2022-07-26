@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <title>Web Monitoring</title>
     <script src="jquery-3.6.0.min.js"></script>
-    <script src="knockout-3.5.1.js"></script>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <style>
     .container{
         position: relative;
         display: grid;
-        width: 800px;
-        left: 330px;
+        width: 100%;
+        top: 30px;
         grid-template:
-           'sidebar navbar navbar '
-           'sidebar middle right '
-           'sidebar middle right ';
-        grid-template-rows: 20px 1fr 70px;
-        grid-template-columns: 10px 25px 1fr;
+           'sidebar navbar navbar navbar navbar navbar'
+           'sidebar middle right projector audio server'
+           'sidebar middle right projector audio server';
+        grid-template-rows: 20px 2fr 200px;
+        grid-template-columns: 10px 30px 1fr 230px 230px 230px ;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
@@ -29,50 +30,66 @@
 
     .sidebar{
         grid-area: sidebar;
-        background-color:#28A745;
+        background-color:#00e68a;
         text-align:center;
         padding-top: 7px;
         border-top-left-radius: 4.2px;
         border-bottom-left-radius: 4.2px;
 
      }
-     .navbar{
+     #navbar{
         grid-area: navbar;
-        background-color:#808080;
+        background-color:#606060;
         text-align:center;
         border-top-right-radius: 4.2px;
+
 
      }
      .middle{
         grid-area: middle;
-        background-color:#ccc;
+        background-color:#505050;
         text-align:center;
      }
      .right{
         grid-area: right;
-        background-color:#777;
+        background-color:#404040;
         text-align:center;
         border-bottom-right-radius: 4.2px;
+     }
+     .projector{
+        position: relative;
+        grid-area: projector;
+        background-color:#505050;
+     }
+
+     .audio{
+        grid-area: audio;
+        background-color:#ffd700;
+     }
+
+     .server{
+        grid-area: server;
+        background-color:#ff9900;
      }
 
     .fa-play{
         position: relative;
-        color: #28A745;
-        right: 381px;
+        color: #00e68a;
+        right: 733px;
         font-size: 11px;
     }
     .play_text{
         position:relative;
-        right: 350px;
-        bottom: 27px;
-        color: #28A745;
+        right: 700px;
+        bottom: 18px;
+        color: #00e68a;
         font-size: 12px;
     }
 
     .SelectMovieId{
         position: relative;
-        bottom: 55px;
-        right: 230px;
+        bottom: 47px;
+        right: 600px;
         height: 15px;
         width: 150px;
         background-color: transparent;
@@ -82,47 +99,77 @@
 
     .fa-plug{
         position: relative;
-        color: #28A745;
+        color: #00e68a;
         font-size: 12px;
+        padding-top: 15px;
         padding-bottom: 10px;
     }
     .fa-circle{
         position: relative;
-        color: #28A745;
+        color: #00e68a;
         font-size: 12px;
-        padding-bottom: 10px;
+        padding-bottom: 15px;
     }
     .fa-calendar-week{
         position: relative;
-        color: #28A745;
+        color: #00e68a;
         font-size: 12px;
-        padding-bottom: 10px;
+        padding-bottom: 15px;
     }
     .fa-chromecast{
         position: relative;
-        color: #28A745;
+        color: #00e68a;
         font-size: 12px;
     }
 
-    .spl{
+    .movieTem{
         position: relative;
-        float: left;
+        color: #808080;
+        bottom: 160px;
+        margin-left: 65px;
+        font-size: 12px;
+        border: none;
+        background: transparent;
     }
 
-    .current_clip{
+    .progress{
         position: relative;
-        float: left;
+        bottom: 150px;
+        width: 49%;
+        margin-left: 65px;
+        border-radius: 30px;
+        background-color: #808080;
+
     }
+
+    .fa-video, .fa-power-off, .fa-record-vinyl, .fa-lightbulb{
+        color: #00e68a;
+        position: relative;
+        margin-left: 20px;
+        margin-top:10px;
+        padding-right: 6px;
+        font-size: 15px;
+
+    }
+
+    .projectortem{
+        position: relative;
+        bottom: 255px;
+        margin-left: 228px;
+        color: #909090;
+        font-size: 12px;
+    }
+
 
     </style>
 </head>
 <body>
 <div class="container">
     <div class="sidebar"></div>
-    <div class="navbar">
+    <div id="navbar">
         <i class="fa-solid fa-play"></i>
         <p class="play_text">Playing</p>
-        <select class="SelectMovieId" data-bind="options:movieViewModel, optionsText:'name', optionsValue:'name'"></select>
+        <select class="SelectMovieId"></select>
     </div>
     <div class="middle">
         <i class="fa-solid fa-plug"></i><br>
@@ -130,48 +177,160 @@
         <i class="fa-solid fa-calendar-week"></i><br/>
         <i class="fab fa-chromecast"></i>
     </div>
+    <div class="right">
+        <template id="movieDetail-component">
+            <input class="movieTem" readonly data-bind="value: spl, style: {color: 'White', fontSize: '20px', fontFamily: 'New Time Roman', width: '500px', outline: 'None'}" />
+            <br>
+            <input class="movieTem" data-bind="value: current_clip, style: {fontSize: '14px', fontFamily: 'New Time Roman', paddingBottom: '20px', width: '740px', outline: 'None'}" />
+            <br>
+            <input class="movieTem" data-bind="value: current_playtime, style: {fontFamily: 'New Times Roman', outline: 'None'}" />
+            <input class="movieTem" data-bind="value: playtime_left, style: {position: 'Relative',color: '#808080', left: '468px', fontFamily: 'New Time Roman', width: '100px', outline: 'None'}" />
+            <br>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 31.9641814288495%; background:#00e68a;"></div>
+            </div>
 
-    <div class="right" data-bind="template:{name:'firstMovie', data:movieViewModel}">
+            <label class="movieTem">&nbsp;Updated at:<input data-bind="value: update_time, style: {position: 'Relative', color: '#808080', fontSize: '12px', fontFamily: 'New Time Roman', border: 'None', background: 'Transparent', Top: '200px', outline: 'None'}" /></label>
+            <br>
+            <label class="movieTem">&nbsp;Next show:<input data-bind="value: next_show_spl, style: {position: 'Relative', color: '#808080', fontSize: '12px', fontFamily: 'New Time Roman', border: 'None', background: 'Transparent', width: '300px', outline: 'None'}" /></label>
+            <input class="movieTem" data-bind="value: next_show_time, style: {position: 'Relative', color: '#808080', fontSize: '12px', fontFamily: 'New Time Roman', width: '100px', left: '245px', outline: 'None'}"/>
+        </template>
     </div>
+    <div class="projector">
+        <b style="color: #B8B8B8; position:relative; top: 6px; margin-left: 20px;">Projector 1</b><br>
+        <span><i class="fa-solid fa-video"></i></span>
+        <span><i class="fa-solid fa-power-off"></i></span>
+        <span><i class="fa-solid fa-record-vinyl"></i></span>
+        <span><i class="fa-solid fa-lightbulb"></i></span>
+        <template id="projector-component">
+            <label class="projectortem">Channel:<input data-bind="value: channel, style: {position: 'Relative', color: '#909090', fontSize: '12px', left: '29px', fontFamily: 'New Times Roman', outline: 'None', background: 'Transparent', border: 'None'}" /></label>
+            <br>
+            <label class="projectortem" style="margin-left:201vh;">Lamp Hour:<input data-bind="value: lamphours, style: {position: 'Relative', left: '10px', color: '#00e68a', fontSize: '12px', fontFamily: 'New Times Roman', outline: 'None', background: 'Transparent', border: 'None'}" /></label>
+        </template>
+    </div>
+    <div class="audio">
+        audio
+    </div>
+    <div class="server">
+        server
+    </div>
+
 </div>
 
-<template id="firstMovie">
-    <span class="spl" data-bind="text:spl"></span><br/>
-    <span class="current_clip" data-bind="text:current_clip"></span><br/>
-    <span class="current_playtime" data-bind="text:current_playtime"></span>
-    <span class="playtime_left" data-bind="text:playtime_left"></span><br/>
-    <span class="playing_progress" data-bind="text:playing_progress"></span><br/>
-    <span class="update_time" data-bind="text:update_time"></span><br/>
-    <span class="next_show_spl" data-bind="text:next_show_spl"></span>
-    <span class="next_show_time" data-bind="text:next_show_time"></span><br/>
-</template>
+
+
+
+  <calculate-sum params="data: data"></calculate-sum>
+  <calculate-min params="data: data"></calculate-min>
 
 <script>
-    function Movie(name,spl, c_clip, c_playtime, pt_left, p_progress, update_t, next_spl, next_time){
-        this.name = name;
-        this.spl = spl;
-        this.current_clip = c_clip;
-        this.current_playtime = c_playtime;
-        this.playtime_left = pt_left;
-        this.playing_progress = p_progress;
-        this.update_time = update_t;
-        this.next_show_spl = next_spl;
-        this.next_show_time = next_time;
-    }
-    function MovieViewModel(){
-        this.name = ko.observable("12厅");
-        this.spl = ko.observable("[2D] 珠峰队长2D-国语_1715_20220715_12厅");
-        this.current_clip = ko.observable("ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV");
-        this.current_playtime = ko.observable("00:27:22");
-        this.playtime_left = ko.observable("-00:58:15");
-        this.playing_progress = ko.observable("31.9641814288495");
-        this.update_time = ko.observable("17:40:56");
-        this.next_show_spl = ko.observable("隐入尘烟2D-国语_1900_20220715_12厅");
-        this.next_show_time = ko.observable("00:01:17:29");
-    }
 
-    var movieViewModel = new MovieViewModel();
+      var observable = ko.observable,
+      data = ko.mapping.fromJS(
+      {
+        "id": "d79d7374-95d8-4a52-ae64-ba157dcaf0cd",
+        "name": "12厅",
+        "update_time": "17:40:56",
+        "status": "playing",
+        "connection": true,
+        "ping": true,
+        "scheduler_mode": true,
+        "playbackInfo": {
+            "spl": "[2D] 珠峰队长2D-国语_1715_20220715_12厅",
+            "current_clip": "(ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV)",
+            "next_show_spl": "隐入尘烟2D-国语_1900_20220715_12厅",
+            "next_show_time": "00:01:17:29",
+            "current_playtime": "00:27:22",
+            "playtime_left": "-00:58:15",
+            "playing_progress": 31.9641814288495,
+            "current_clip_index": "7",
+            "total_clips": "8",
+            "liveplay": true,
+            "lms_enable": true,
+            "is_clip_exist_both": true
+        },
+        "server": {
+            "serial": "A71419",
+            "software": "17.00-build72",
+            "os": "OS-SR1K-1.0.0",
+            "freespace": "1.9 TB",
+            "usedspace": "1.7 TB",
+            "capacity": "3.6 TB",
+            "storageusage": 47,
+            "storagecolorlevel": 1,
+            "raidstatus": ""
+        },
+        "projector0": {
+            "id": "de524405-09e4-4fa6-82c2-fea75cccc546",
+            "name": "122",
+            "strpower": "ON",
+            "powerstatus": true,
+            "lampstatus": true,
+            "dowserstatus": true,
+            "channel": "1",
+            "lamphours": "9471hr",
+            "lamphourscolor": 0,
+            "available": true,
+            "connection": true
+        },
+        "projector1": {
+            "id": "de524405-09e4-4fa6-82c2-fea75cccc546",
+            "name": "122",
+            "strpower": "ON",
+            "powerstatus": true,
+            "lampstatus": true,
+            "dowserstatus": true,
+            "channel": "1",
+            "lamphours": "9471hr",
+            "lamphourscolor": 0,
+            "available": true,
+            "connection": true
+        },
+        "audio": {
+            "id": "ed7824dd-6086-4ac7-b927-0ee7fc994894",
+            "input": "1",
+            "level": "6.0",
+            "mute": "OFF",
+            "decode": "N/A",
+            "format": "N/A",
+            "available": true,
+            "connection": true
+        }
+      });
+
+    ko.components.register('calculate-sum', {
+      viewModel: function(params) {
+        this.spl = params.data.playbackInfo.spl;
+        this.current_clip = params.data.playbackInfo.current_clip;
+        this.current_playtime = params.data.playbackInfo.current_playtime;
+        this.playtime_left = params.data.playbackInfo.playtime_left;
+        this.playing_progress = params.data.playbackInfo.playing_progress;
+        this.update_time = params.data.update_time;
+        this.next_show_spl = params.data.playbackInfo.next_show_spl;
+        this.next_show_time = params.data.playbackInfo.next_show_time;
+      },
+      template: {
+        element: 'movieDetail-component'
+      }
+    });
+
+    ko.components.register('calculate-min', {
+      viewModel: function(params) {
+        this.channel = params.data.projector1.channel;
+        this.lamphours = params.data.projector1.lamphours;
+      },
+      template: {
+        element: 'projector-component'
+      }
+    });
+
+
     ko.applyBindings();
+
+
+
+
+
 </script>
 </body>
 </html>
