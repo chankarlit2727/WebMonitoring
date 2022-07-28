@@ -10,218 +10,244 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <style>
+
+    .container:before{
+        content: none;
+    }
+
     .container{
         position: relative;
         display: grid;
         width: 100%;
-        top: 30px;
+        padding: 20px;
         grid-template:
            'sidebar navbar navbar navbar navbar navbar'
            'sidebar middle right projector audio server'
            'sidebar middle right projector audio server';
-        grid-template-rows: 20px 2fr 200px;
-        grid-template-columns: 10px 30px 1fr 230px 230px 230px ;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
+        grid-template-rows: 40px 2fr 0px;
+        grid-template-columns: 30px 40px 1fr 240px 240px 240px ;
+        content: "after";
 
     }
 
     .sidebar{
+        position: relative;
         grid-area: sidebar;
-        background-color:#00e68a;
         text-align:center;
-        padding-top: 7px;
-        border-top-left-radius: 4.2px;
-        border-bottom-left-radius: 4.2px;
 
      }
-     #navbar{
+
+     .navbar{
+        position: relative;
         grid-area: navbar;
         background-color:#606060;
-        text-align:center;
-        border-top-right-radius: 4.2px;
 
 
      }
+
      .middle{
+        position: relative;
         grid-area: middle;
         background-color:#505050;
         text-align:center;
      }
+
      .right{
+        position: relative;
         grid-area: right;
         background-color:#404040;
-        text-align:center;
-        border-bottom-right-radius: 4.2px;
      }
+
+     .navicon{
+        position: relative;
+        float: left;
+        padding: 13px;
+        bottom: 5px;
+        background: transparent;
+        border: none;
+        outline: none;
+        font-size: 20px;
+     }
+
+     .navicon input{
+        background: transparent;
+        border: none;
+        outline: none;
+     }
+
+
+
      .projector{
         position: relative;
-        grid-area: projector;
         background-color:#505050;
      }
 
      .audio{
-        grid-area: audio;
-        background-color:#ffd700;
+        position: relative;
+        background-color:#505050;
      }
 
      .server{
-        grid-area: server;
-        background-color:#ff9900;
+        position: relative;
+        background-color:#505050;
+
      }
 
-    .fa-play{
-        position: relative;
-        color: #00e68a;
-        right: 733px;
-        font-size: 11px;
-    }
-    .play_text{
-        position:relative;
-        right: 700px;
-        bottom: 18px;
-        color: #00e68a;
-        font-size: 12px;
-    }
+     .fa-plug, .fa-circle, .fa-calendar-week, .fa-chromecast{
+        position: static;
+        font-size: 20px;
+        padding: 10px;
+        padding-bottom: 30px;
 
-    .SelectMovieId{
-        position: relative;
-        bottom: 47px;
-        right: 600px;
-        height: 15px;
-        width: 150px;
-        background-color: transparent;
-        color: #99CCFF;
-        font-size:10px;
-    }
-
-    .fa-plug{
-        position: relative;
-        color: #00e68a;
-        font-size: 12px;
-        padding-top: 15px;
-        padding-bottom: 10px;
-    }
-    .fa-circle{
-        position: relative;
-        color: #00e68a;
-        font-size: 12px;
-        padding-bottom: 15px;
-    }
-    .fa-calendar-week{
-        position: relative;
-        color: #00e68a;
-        font-size: 12px;
-        padding-bottom: 15px;
-    }
-    .fa-chromecast{
-        position: relative;
-        color: #00e68a;
-        font-size: 12px;
-    }
+     }
 
     .movieTem{
-        position: relative;
-        color: #808080;
-        bottom: 160px;
-        margin-left: 65px;
-        font-size: 12px;
-        border: none;
+        position: static;
+        margin: 10px;
+        padding: 10px;
         background: transparent;
+        color: #808080;
+        border: none;
+        outline: none;
+        padding-bottom: 0px;
     }
 
     .progress{
-        position: relative;
-        bottom: 150px;
-        width: 49%;
-        margin-left: 65px;
-        border-radius: 30px;
-        background-color: #808080;
-
+        position: static;
+        margin: 20px;
     }
 
-    .fa-video, .fa-power-off, .fa-record-vinyl, .fa-lightbulb{
-        color: #00e68a;
-        position: relative;
+    .projectorTem{
+        position: static;
+        color: #808080;
         margin-left: 20px;
-        margin-top:10px;
-        padding-right: 6px;
-        font-size: 15px;
+        padding-top: 20px;
 
     }
 
-    .projectortem{
-        position: relative;
-        bottom: 255px;
-        margin-left: 228px;
-        color: #909090;
-        font-size: 12px;
+    .fa-video, .fa-power-off, .fa-record-vinyl, .fa-lightbulb, .fa-volume-high, .fa-volume-xmark{
+        display: inline-block;
+        position: static;
+        font-size: 20px;
+        margin: 0 10px 0 0;
+        padding-bottom: 10px;
     }
 
+    .audioTem{
+        position: static;
+        color: #808080;
+        margin-left: 20px;
+        padding-top: 20px;
+    }
 
+    .serverTem{
+        position: static;
+        color: #808080;
+        margin-left: 20px;
+        padding-top: 20px;
+    }
+
+    .serverTem .progress{
+        positive: relative;
+        margin: 0px;
+        margin-left: 90px;
+        width: 100%;
+    }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="sidebar"></div>
-    <div id="navbar">
-        <i class="fa-solid fa-play"></i>
-        <p class="play_text">Playing</p>
-        <select class="SelectMovieId"></select>
-    </div>
-    <div class="middle">
-        <i class="fa-solid fa-plug"></i><br>
-        <i class="fa-solid fa-circle"></i></i><br/>
-        <i class="fa-solid fa-calendar-week"></i><br/>
-        <i class="fab fa-chromecast"></i>
-    </div>
-    <div class="right">
-        <template id="movieDetail-component">
-            <input class="movieTem" readonly data-bind="value: spl, style: {color: 'White', fontSize: '20px', fontFamily: 'New Time Roman', width: '500px', outline: 'None'}" />
+<template id="parent-component">
+    <div class="container">
+        <div class="sidebar" data-bind="style:{background: sidebarStatus}"></div>
+        <div class="navbar">
+            <div class="navicon" data-bind="visible: PlayingStatus, style:{color: PlayingStatus}"><i class="fa-solid fa-play">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
+            <div class="navicon" data-bind="visible: Pause, style:{color: Pause}"><i class="fa-solid fa-pause">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
+            <div class="navicon" data-bind="visible: Error, style:{color: Error}"><i class="fa-solid fa-triangle-exclamation">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
+            <div class="navicon" data-bind="visible: Sync, style:{color: Sync}"><i class="fa-solid fa-arrows-rotate">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
+            <select data-bind="options: SelectedName, style: {position: 'Relative', right: '170px', top: '10px', width: '200px', background: 'Transparent', color: 'LightBlue'}"></select>
+            <div><i class="fa fa-sliders" style="position: relative; float: right; font-size: 25px; margin-right: 10px; bottom: 10px;"></i></div>
+        </div>
+        <div class="middle">
+            <div data-bind="style: {color: ConnectionStatus}"><i class="fa-solid fa-plug"></i></div>
+            <div data-bind="style: {color: Ping}"><i class="fa-solid fa-circle"></i></div>
+            <div data-bind="style: {color: Calendar}"><i class="fa-solid fa-calendar-week"></i></div>
+            <div data-bind="visible: Liveplay, style:{color: Liveplay}"><i class="fab fa-chromecast"></i></div><br>
+        </div>
+        <div class="right">
+            <input readonly class="movieTem" data-bind="value: spl, style:{width: '500px', fontWeight: 'Bold', color: 'White', fontSize: '20px'}" />
             <br>
-            <input class="movieTem" data-bind="value: current_clip, style: {fontSize: '14px', fontFamily: 'New Time Roman', paddingBottom: '20px', width: '740px', outline: 'None'}" />
+            <input readonly class="movieTem" data-bind="value: current_clip, style:{width: '650px'}" />
             <br>
-            <input class="movieTem" data-bind="value: current_playtime, style: {fontFamily: 'New Times Roman', outline: 'None'}" />
-            <input class="movieTem" data-bind="value: playtime_left, style: {position: 'Relative',color: '#808080', left: '468px', fontFamily: 'New Time Roman', width: '100px', outline: 'None'}" />
+            <input readonly class="movieTem" data-bind="value: current_playtime" />
+            <input readonly class="movieTem" data-bind="value: playtime_left, style:{float: 'Right', width: '90px'}" />
             <br>
             <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 31.9641814288495%; background:#00e68a;"></div>
+              <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
             </div>
 
-            <label class="movieTem">&nbsp;Updated at:<input data-bind="value: update_time, style: {position: 'Relative', color: '#808080', fontSize: '12px', fontFamily: 'New Time Roman', border: 'None', background: 'Transparent', Top: '200px', outline: 'None'}" /></label>
+            <label class="movieTem">&nbsp;Updated at:<input readonly data-bind="value: update_time, style: {background: 'Transparent', border: 'None', outline: 'None'}" /></label>
             <br>
-            <label class="movieTem">&nbsp;Next show:<input data-bind="value: next_show_spl, style: {position: 'Relative', color: '#808080', fontSize: '12px', fontFamily: 'New Time Roman', border: 'None', background: 'Transparent', width: '300px', outline: 'None'}" /></label>
-            <input class="movieTem" data-bind="value: next_show_time, style: {position: 'Relative', color: '#808080', fontSize: '12px', fontFamily: 'New Time Roman', width: '100px', left: '245px', outline: 'None'}"/>
-        </template>
-    </div>
-    <div class="projector">
-        <b style="color: #B8B8B8; position:relative; top: 6px; margin-left: 20px;">Projector 1</b><br>
-        <span><i class="fa-solid fa-video"></i></span>
-        <span><i class="fa-solid fa-power-off"></i></span>
-        <span><i class="fa-solid fa-record-vinyl"></i></span>
-        <span><i class="fa-solid fa-lightbulb"></i></span>
-        <template id="projector-component">
-            <label class="projectortem">Channel:<input data-bind="value: channel, style: {position: 'Relative', color: '#909090', fontSize: '12px', left: '29px', fontFamily: 'New Times Roman', outline: 'None', background: 'Transparent', border: 'None'}" /></label>
+            <label class="movieTem">&nbsp;Next show:<input readonly data-bind="value: next_show_spl, , style: {background: 'Transparent', border: 'None', outline: 'None'}" /></label>
+            <input readonly class="movieTem" data-bind="value: next_show_time, style:{float: 'Right', width: '105px'}"/>
+        </div>
+         <div class="projector">
+             <br>
+            <span class="projectorTem">Projector 0</span><br>
+            <span class="projectorTem" data-bind="style: {color: Connection0}"><i class="fa-solid fa-video"></i></span>
+            <span class="projectorTem" data-bind="style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
+            <span class="projectorTem" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
+            <span class="projectorTem" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span><br>
+            <span class="projectorTem">Channel:<input data-bind="value: channel, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}" /></span><br>
+            <span class="projectorTem">Lamp Hour:<input data-bind="value: lamphours, style:{color: LampHours, background: 'Transparent', border: 'None', outline: 'None', width: '100px', height: '20px', position: 'Relative', left: '10px'}" /></span><br><br>
+            <span class="projectorTem">Projector 1</span><br>
+            <span class="projectorTem" data-bind="style: {color: Connection1}"><i class="fa-solid fa-video"></i></span>
+            <span class="projectorTem" data-bind="style: {color: PowerStatus1}"><i class="fa-solid fa-power-off"></i></span>
+            <span class="projectorTem" data-bind="style: {color: DowserStatus1}"><i class="fa-solid fa-record-vinyl"></i></span>
+            <span class="projectorTem" data-bind="style: {color: LampHoursColor1}"><i class="fa-solid fa-lightbulb"></i></span><br>
+            <span class="projectorTem">Channel:<input data-bind="value: channel1, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}" /></span><br>
+            <span class="projectorTem">Lamp Hour:<input data-bind="value: lamphours1, style:{color: LampHours1, background: 'Transparent', border: 'None', outline: 'None', width: '100px', height: '20px', position: 'Relative', left: '10px'}" /></span><br><br>
+         </div>
+         <div class="audio">
+             <br>
+            <span class="audioTem" >Audio</span><br>
+            <span class="audioTem" data-bind="visible: AudioNormal, style:{color: AudioNormal}"><i class="fa-solid fa-volume-high"></i></span><br>
+            <span class="audioTem" data-bind="visible: AudioMute, style:{color: AudioMute}"><i class="fa-solid fa-volume-xmark"></i></span><br>
+            <span class="audioTem">Input:<input readonly data-bind="value: input, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}" /></span>
             <br>
-            <label class="projectortem" style="margin-left:201vh;">Lamp Hour:<input data-bind="value: lamphours, style: {position: 'Relative', left: '10px', color: '#00e68a', fontSize: '12px', fontFamily: 'New Times Roman', outline: 'None', background: 'Transparent', border: 'None'}" /></label>
-        </template>
+            <span class="audioTem">Level:<input readonly data-bind="value: level, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '25px'}" /></span>
+            <br/>
+            <span class="audioTem">Mute:<input readonly data-bind="value: mute, style:{color: AudioMute, background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}"/></span>
+            <br/>
+            <span class="audioTem">Decode:<input readonly data-bind="value: decode, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '10px'}" /></span>
+            <br/>
+            <span class="audioTem">Format:<input readonly data-bind="value: format, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '14px'}" /></span>
+         </div>
+         <div class="server">
+             <br>
+            <span class="serverTem">Server</span><br><br>
+            <span class="serverTem">Serial No:<input data-bind="value: serial, style:{background: 'Transparent', border: 'None', outline: 'None', width: '60px', height: '20px', position: 'Relative', left: '24px'}" /></span>
+            <br>
+            <span class="serverTem">Software:<input data-bind="value: software, style:{background: 'Transparent', border: 'None', outline: 'None', width: '100px', height: '20px', position: 'Relative', left: '24px'}" /></span>
+            <br>
+            <span class="serverTem">OS:<input data-bind="value: os, , style:{background: 'Transparent', border: 'None', outline: 'None', width: '120px', height: '20px', position: 'Relative', left: '60px'}" /></span>
+            <br>
+            <span class="serverTem" >Data usage:
+                <div class="progress" style="position:relative; bottom:15px; left: 18px; height: 15px; width: 100px;">
+                  <div class="progress-bar" role="progressbar" data-bind="style: {width: storageusage, background: '#00e68a' }"></div>
+                </div>
+            </span>
+            <span class="serverTem">
+                RAID Status:<input readonly data-bind="value: raidstatus, style:{color: RaidStatus, background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '4px'}" />
+            </span>
+         </div>
     </div>
-    <div class="audio">
-        audio
-    </div>
-    <div class="server">
-        server
-    </div>
-
-</div>
+</template>
 
 
 
+<parents-detail params="data: data"></parents-detail>
 
-  <calculate-sum params="data: data"></calculate-sum>
-  <calculate-min params="data: data"></calculate-min>
+
 
 <script>
 
@@ -258,7 +284,7 @@
             "capacity": "3.6 TB",
             "storageusage": 47,
             "storagecolorlevel": 1,
-            "raidstatus": ""
+            "raidstatus": "OK"
         },
         "projector0": {
             "id": "de524405-09e4-4fa6-82c2-fea75cccc546",
@@ -279,7 +305,7 @@
             "strpower": "ON",
             "powerstatus": true,
             "lampstatus": true,
-            "dowserstatus": true,
+            "dowserstatus": false,
             "channel": "1",
             "lamphours": "9471hr",
             "lamphourscolor": 0,
@@ -298,8 +324,16 @@
         }
       });
 
-    ko.components.register('calculate-sum', {
+
+
+    ko.components.register('parents-detail', {
       viewModel: function(params) {
+        this.id = params.data.id;
+        this.name = params.data.name;
+        this.status = params.data.status;
+        this.connection = params.data.connection;
+        this.ping = params.data.ping;
+        this.scheduler = params.data.scheduler_mode;
         this.spl = params.data.playbackInfo.spl;
         this.current_clip = params.data.playbackInfo.current_clip;
         this.current_playtime = params.data.playbackInfo.current_playtime;
@@ -308,19 +342,224 @@
         this.update_time = params.data.update_time;
         this.next_show_spl = params.data.playbackInfo.next_show_spl;
         this.next_show_time = params.data.playbackInfo.next_show_time;
-      },
-      template: {
-        element: 'movieDetail-component'
-      }
-    });
+        this.liveplay = params.data.playbackInfo.liveplay;
+        this.lmsenable = params.data.playbackInfo.lms_enable;
+        this.connection0 = params.data.projector0.connection;
+        this.connection1 = params.data.projector1.connection;
+        this.lamphourscolor = params.data.projector0.lamphourscolor;
+        this.lamphourscolor1 = params.data.projector1.lamphourscolor;
+        this.channel = params.data.projector0.channel;
+        this.channel1 = params.data.projector1.channel;
+        this.lamphours = params.data.projector0.lamphours;
+        this.lamphours1 = params.data.projector1.lamphours;
+        this.powerstatus = params.data.projector0.powerstatus;
+        this.powerstatus1 = params.data.projector1.powerstatus;
+        this.dowserstatus = params.data.projector0.dowserstatus;
+        this.dowserstatus1 = params.data.projector1.dowserstatus;
+        this.input = params.data.audio.input;
+        this.level = params.data.audio.level;
+        this.mute = params.data.audio.mute;
+        this.decode = params.data.audio.decode;
+        this.format = params.data.audio.format;
+        this.serial = params.data.server.serial;
+        this.software = params.data.server.software;
+        this.os = params.data.server.os;
+        this.storageusage = params.data.server.storageusage;
+        this.raidstatus = params.data.server.raidstatus;
 
-    ko.components.register('calculate-min', {
-      viewModel: function(params) {
-        this.channel = params.data.projector1.channel;
-        this.lamphours = params.data.projector1.lamphours;
+        this.progressPercentual = ko.computed(function(){
+            return '' + ko.utils.unwrapObservable(this.playing_progress) + '%';
+        }, this)
+
+        this.SelectedName = ko.computed(function(){
+            var name = [this.name];
+                return name;
+
+        }, this)
+
+        this.progressBar = ko.computed(function(){
+            if(this.status() == "error")
+                return 'Yellow';
+            else
+                return '#00e68a';
+        }, this)
+
+        this.sidebarStatus = ko.computed(function(){
+            if(this.status() == "playing")
+                return '#00e68a';
+            else if(this.status() == "pause")
+                return 'Blue';
+            else if(this.status() == "error")
+                return 'Red';
+            else if(this.status() == "sync")
+                return 'LightBlue';
+        }, this)
+
+        this.Connection0 = ko.computed(function(){
+            if(this.connection0() == true)
+                return '#00e68a';
+            else if(this.connection0() == false)
+                return 'Red';
+            else
+                return 'Grey';
+        }, this)
+
+        this.Connection1 = ko.computed(function(){
+            if(this.connection1() == true)
+                return '#00e68a';
+            else if(this.connection1() == false)
+                return 'Red';
+            else
+                return 'Grey';
+        }, this)
+
+        this.LampHoursColor = ko.computed(function(){
+            if(this.lamphourscolor() < 1)
+                return '#00e68a';
+            else if(this.lamphourscolor()  === 1)
+                return 'Yellow';
+            else if(this.lamphourscolor() > 1)
+                return 'Red';
+        }, this)
+
+        this.LampHoursColor1 = ko.computed(function(){
+            if(this.lamphourscolor1() < 1)
+                return '#00e68a';
+            else if(this.lamphourscolor1()  === 1)
+                return 'Yellow';
+            else if(this.lamphourscolor1() > 1)
+                return 'Red';
+        }, this)
+
+        this.LampHours = ko.computed(function(){
+            if(this.dowserstatus() == true)
+                return '#00e68a';
+            if(this.dowserstatus() == false)
+                return 'Red';
+        }, this)
+
+        this.LampHours1 = ko.computed(function(){
+            if(this.dowserstatus1() == true)
+                return '#00e68a';
+            if(this.dowserstatus1() == false)
+                return 'Red';
+        }, this)
+
+        this.AudioNormal = ko.computed(function(){
+            if(this.mute() == "ON")
+                return '#00e68a';
+            else if (this.mute() != "ON" && this.mute() != "OFF")
+                return 'Grey';
+
+        }, this)
+
+        this.AudioMute = ko.computed(function(){
+            if(this.mute() == "OFF")
+                return 'Yellow';
+        }, this)
+
+        this.StorageUsage = ko.computed(function(){
+            if(this.storageusage() < 80)
+                return '#00e68a';
+            else if(this.storageusage() >= 80 && this.storageusage() < 90)
+                return 'Yellow';
+            else if(this.storageusage() >= 90)
+                return 'Red';
+        }, this)
+
+        this.ConnectionStatus = ko.computed(function(){
+            if(this.connection() == true)
+                return '#00e68a';
+            else
+                return 'Grey';
+        }, this)
+
+        this.Ping = ko.computed(function(){
+            if(this.ping() == true)
+                return '#00e68a';
+            else
+                return 'Red';
+        }, this)
+
+        this.Calendar = ko.computed(function(){
+            if(this.scheduler() == true)
+                return '#00e68a';
+            else if(this.scheduler() == false)
+                return 'Red';
+            else
+                return 'Grey';
+        }, this)
+
+        this.Liveplay = ko.computed(function(){
+            if(this.liveplay() == true && this.status() != "error")
+                return '#00e68a';
+        }, this)
+
+        this.Pause = ko.computed(function(){
+            if(this.status() == "pause")
+                return 'Blue';
+        }, this)
+
+        this.Error = ko.computed(function(){
+            if(this.status() == "error")
+                return 'Red';
+        }, this)
+
+        this.Sync = ko.computed(function(){
+            if(this.status() == "sync")
+                return 'LightBlue';
+        }, this)
+
+        this.PlayingStatus = ko.computed(function(){
+            if((this.liveplay() == false && this.lmsenable() == false) || (this.liveplay() == true && this.lmsenable() == false) && this.status() == "pause")
+                    return 'Blue';
+            else if(this.liveplay() == true && this.lmsenable() == true && this.status() == "playing")
+                    return '#00e68a';
+        }, this)
+
+        this.RaidStatus = ko.computed(function(){
+            if(this.raidstatus() == "OK")
+                return '#00e68a';
+            else if(this.raidstatus() == "degraded")
+                return 'Red';
+            else
+                return 'Grey';
+        }, this)
+
+        this.PowerStatus = ko.computed(function(){
+            if(this.powerstatus() == true)
+                return '#00e68a';
+            else
+                return 'Red';
+        }, this)
+
+        this.PowerStatus1 = ko.computed(function(){
+            if(this.powerstatus1() == true)
+                return '#00e68a';
+            else
+                return 'Red';
+        }, this)
+
+        this.DowserStatus = ko.computed(function(){
+            if(this.dowserstatus() == true)
+                return '#00e68a';
+            else if(this.dowserstatus() == false)
+                return 'Red';
+            else
+                return 'Grey';
+        }, this)
+
+        this.DowserStatus1 = ko.computed(function(){
+            if(this.dowserstatus1() == true)
+                return '#00e68a';
+            else if(this.dowserstatus1() == false)
+                return 'Red';
+            else
+                return 'Grey';
+        }, this)
       },
       template: {
-        element: 'projector-component'
+        element: 'parent-component'
       }
     });
 
