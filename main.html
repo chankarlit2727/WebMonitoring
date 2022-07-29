@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Web Monitoring</title>
     <script src="jquery-3.6.0.min.js"></script>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<!--    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
@@ -161,11 +161,11 @@
         <div class="sidebar" data-bind="style:{background: sidebarStatus}"></div>
         <div class="navbar">
             <div class="navicon" data-bind="visible: PlayingStatus, style:{color: PlayingStatus}"><i class="fa-solid fa-play">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
-            <div class="navicon" data-bind="visible: Pause, style:{color: Pause}"><i class="fa-solid fa-pause">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
+                <div class="navicon" data-bind="visible: Pause, style:{color: Pause}"><i class="fa-solid fa-pause">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
             <div class="navicon" data-bind="visible: Error, style:{color: Error}"><i class="fa-solid fa-triangle-exclamation">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
             <div class="navicon" data-bind="visible: Sync, style:{color: Sync}"><i class="fa-solid fa-arrows-rotate">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
             <select data-bind="options: SelectedName, style: {position: 'Relative', right: '170px', top: '10px', width: '200px', background: 'Transparent', color: 'LightBlue'}"></select>
-            <div><i class="fa fa-sliders" style="position: relative; float: right; font-size: 25px; margin-right: 10px; bottom: 10px;"></i></div>
+            <div><i class="fa-solid fa-sliders-h" style="position: relative; float: right; font-size: 25px; margin-right: 10px; bottom: 10px;"></i></div>
         </div>
         <div class="middle">
             <div data-bind="style: {color: ConnectionStatus}"><i class="fa-solid fa-plug"></i></div>
@@ -179,20 +179,24 @@
             <input readonly class="movieTem" data-bind="value: current_clip, style:{width: '650px'}" />
             <br>
             <input readonly class="movieTem" data-bind="value: current_playtime" />
-            <input readonly class="movieTem" data-bind="value: playtime_left, style:{float: 'Right', width: '90px'}" />
+            <input readonly class="movieTem" data-bind="value: playtime_left, visible: progressPercentual, style:{float: 'Right', width: '90px'}" />
             <br>
-            <div class="progress">
+            <div class="progress" data-bind="visible: progressPercentual">
               <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
             </div>
 
-            <label class="movieTem">&nbsp;Updated at:<input readonly data-bind="value: update_time, style: {background: 'Transparent', border: 'None', outline: 'None'}" /></label>
+            <label class="movieTem">&nbsp;Updated at:<input readonly data-bind="value: update_time, visible: progressPercentual, style: {background: 'Transparent', border: 'None', outline: 'None'}" /></label>
             <br>
             <label class="movieTem">&nbsp;Next show:<input readonly data-bind="value: next_show_spl, , style: {background: 'Transparent', border: 'None', outline: 'None'}" /></label>
             <input readonly class="movieTem" data-bind="value: next_show_time, style:{float: 'Right', width: '105px'}"/>
         </div>
-         <div class="projector">
+         <div class="projector" data-bind="style: {color: NoProjector}">
              <br>
             <span class="projectorTem">Projector 0</span><br>
+             <!-- ko if: NoProjector -->
+            <span class="projectorTem">No added device</span><br>
+             <!-- /ko -->
+            <!-- ko ifnot: NoProjector -->
             <span class="projectorTem" data-bind="style: {color: Connection0}"><i class="fa-solid fa-video"></i></span>
             <span class="projectorTem" data-bind="style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
             <span class="projectorTem" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
@@ -206,6 +210,7 @@
             <span class="projectorTem" data-bind="style: {color: LampHoursColor1}"><i class="fa-solid fa-lightbulb"></i></span><br>
             <span class="projectorTem">Channel:<input data-bind="value: channel1, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}" /></span><br>
             <span class="projectorTem">Lamp Hour:<input data-bind="value: lamphours1, style:{color: LampHours1, background: 'Transparent', border: 'None', outline: 'None', width: '100px', height: '20px', position: 'Relative', left: '10px'}" /></span><br><br>
+            <!-- /ko -->
          </div>
          <div class="audio">
              <br>
@@ -296,7 +301,7 @@
             "channel": "1",
             "lamphours": "9471hr",
             "lamphourscolor": 0,
-            "available": true,
+            "available": false,
             "connection": true
         },
         "projector1": {
@@ -309,7 +314,7 @@
             "channel": "1",
             "lamphours": "9471hr",
             "lamphourscolor": 0,
-            "available": true,
+            "available": false,
             "connection": true
         },
         "audio": {
@@ -346,6 +351,8 @@
         this.lmsenable = params.data.playbackInfo.lms_enable;
         this.connection0 = params.data.projector0.connection;
         this.connection1 = params.data.projector1.connection;
+        this.available = params.data.projector0.available;
+        this.available1 = params.data.projector1.available;
         this.lamphourscolor = params.data.projector0.lamphourscolor;
         this.lamphourscolor1 = params.data.projector1.lamphourscolor;
         this.channel = params.data.projector0.channel;
@@ -367,8 +374,11 @@
         this.storageusage = params.data.server.storageusage;
         this.raidstatus = params.data.server.raidstatus;
 
+
+
         this.progressPercentual = ko.computed(function(){
-            return '' + ko.utils.unwrapObservable(this.playing_progress) + '%';
+            if(this.connection() == true)
+                return '' + ko.utils.unwrapObservable(this.playing_progress) + '%';
         }, this)
 
         this.SelectedName = ko.computed(function(){
@@ -458,6 +468,11 @@
                 return 'Yellow';
         }, this)
 
+        this.NoProjector = ko.computed(function(){
+            if(this.available() == false && this.available1() == false)
+                return 'Grey';
+        }, this)
+
         this.StorageUsage = ko.computed(function(){
             if(this.storageusage() < 80)
                 return '#00e68a';
@@ -470,7 +485,12 @@
         this.ConnectionStatus = ko.computed(function(){
             if(this.connection() == true)
                 return '#00e68a';
-            else
+            else if(this.connection() == false)
+                this.spl = "Unknown SPL";
+                this.current_clip = "Unknown Clip";
+                this.current_playtime = "00:00:00";
+                this.next_show_spl = "";
+                this.next_show_time = "";
                 return 'Grey';
         }, this)
 
@@ -482,16 +502,19 @@
         }, this)
 
         this.Calendar = ko.computed(function(){
-            if(this.scheduler() == true)
+
+            if(this.scheduler() == true && this.status() != "error")
                 return '#00e68a';
             else if(this.scheduler() == false)
+                return 'Red';
+            else if(this.scheduler() == true && this.status() == "error")
                 return 'Red';
             else
                 return 'Grey';
         }, this)
 
         this.Liveplay = ko.computed(function(){
-            if(this.liveplay() == true && this.status() != "error")
+            if(this.liveplay() == true && this.status() != "error" && this.connection() == true)
                 return '#00e68a';
         }, this)
 
