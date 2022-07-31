@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <title>Web Monitoring</title>
     <script src="jquery-3.6.0.min.js"></script>
-<!--    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.1/knockout-latest.js" type="text/javascript"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <style>
 
-    .container:before{
+     body{
+        line-height: 1.35;
+     }
+    .monitoring_container:before{
         content: none;
     }
 
-    .container{
+    .monitoring_container{
         position: relative;
         display: grid;
         width: 100%;
@@ -24,175 +26,371 @@
            'sidebar navbar navbar navbar navbar navbar'
            'sidebar middle right projector audio server'
            'sidebar middle right projector audio server';
-        grid-template-rows: 40px 2fr 0px;
-        grid-template-columns: 30px 40px 1fr 240px 240px 240px ;
+        grid-template-rows: 40px 185px 0px;
+        grid-template-columns: 30px 50px 1fr 240px 240px 240px ;
         content: "after";
 
     }
 
-    .sidebar{
+    .monitoring_sidebar{
         position: relative;
         grid-area: sidebar;
         text-align:center;
-
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        margin-left:18px;
      }
 
-     .navbar{
+     .monitoring_navbar{
         position: relative;
         grid-area: navbar;
-        background-color:#606060;
-
-
+        background-color:#444650;
+        border-top-right-radius: 20px;
      }
 
-     .middle{
+     .monitoring_middle{
         position: relative;
         grid-area: middle;
-        background-color:#505050;
+        background-color:#33353F;
         text-align:center;
      }
 
-     .right{
+     .monitoring_right{
         position: relative;
         grid-area: right;
-        background-color:#404040;
+        background-color:#272A35;
      }
 
      .navicon{
         position: relative;
         float: left;
-        padding: 13px;
+        padding: 14px 20px;
         bottom: 5px;
         background: transparent;
         border: none;
         outline: none;
-        font-size: 20px;
+        font-size: 16px;
      }
 
      .navicon input{
+        width: 180px;
         background: transparent;
+        padding: 0 14px;
         border: none;
         outline: none;
      }
-
-
-
-     .projector{
+     .navicon .fa-ellipsis-vertical{
         position: relative;
-        background-color:#505050;
-     }
-
-     .audio{
-        position: relative;
-        background-color:#505050;
-     }
-
-     .server{
-        position: relative;
-        background-color:#505050;
-
-     }
-
-     .fa-plug, .fa-circle, .fa-calendar-week, .fa-chromecast{
-        position: static;
+        margin: 3px;
+        left: 115px;
         font-size: 20px;
-        padding: 10px;
-        padding-bottom: 30px;
+        color: #6599FF;
+     }
+
+     .navicon-slider{
+        position: relative;
+        text-align: center;
+        float: right;
+        font-size: 20px;
+        width: 50px;
+        height: 50px;
+        background: #BDBEC8;
+        transform: rotate(90deg);
+        border-top-left-radius: 20px;
+     }
+
+     .monitoring_navbar select{
+        position: relative;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+         appearance: none;
+         outline: none;
+     }
+
+     .monitoring_projector{
+        position: relative;
+        background-color:#33353F;
+        list-style-type: none;
+     }
+
+     .monitoring_audio{
+        position: relative;
+        background-color:#33353F;
+     }
+
+     .monitoring_server{
+        position: relative;
+        background-color:#33353F;
+        border-bottom-right-radius: 20px;
+     }
+
+     .fa-plug, .fa-calendar-week, .fa-chromecast{
+        position: static;
+        margin-top: 10px;
+        padding-top: 9px;
+        font-size: 16px;
+     }
+     .fa-circle{
+        position: static;
+        padding-top: 9px;
+        margin-top: 10px;
+        font-size: 10px;
+     }
+
+    .monitoring_right input, .monitoring_right span{
+        position: relative;
 
      }
 
     .movieTem{
-        position: static;
-        margin: 10px;
-        padding: 10px;
+        position: relative;
+        margin:  3px 15px;
+        padding: 1px 4px;
+        top: 2px;
         background: transparent;
-        color: #808080;
+        font-size: 12px;
+        color: #717274;
         border: none;
         outline: none;
-        padding-bottom: 0px;
     }
 
-    .progress{
-        position: static;
-        margin: 20px;
+    .monitoring_right .progress{
+        position: relative;
+        background: #888888;
+        top: 10px;
+        margin: 10px 20px;
+        border-radius: 10px;
     }
 
     .projectorTem{
-        position: static;
-        color: #808080;
-        margin-left: 20px;
-        padding-top: 20px;
+        position: relative;
+        color: #858586;
+        top: 5px;
+        margin: 0px 15px;
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
 
+    .projectorTemTitle{
+        position: relative;
+        color: #858586;
+        margin: 0 10px;
+        padding: 0 5px;
+        top: 10px;
+        display: block;
+        color: #808080;
+        font-size: 10px;
+    }
+
+    .projectorTemInput{
+        position: relative;
+        color: #858586;
+        margin: 0 10px;
+        padding: 0 10px;
+        display: block;
+        font-size: 10px;
+        height: 15px;
+        left: 65px;
+        bottom: 20px;
     }
 
     .fa-video, .fa-power-off, .fa-record-vinyl, .fa-lightbulb, .fa-volume-high, .fa-volume-xmark{
         display: inline-block;
         position: static;
-        font-size: 20px;
-        margin: 0 10px 0 0;
-        padding-bottom: 10px;
+        font-size: 13px;
     }
 
     .audioTem{
-        position: static;
+        position: relative;
         color: #808080;
-        margin-left: 20px;
-        padding-top: 20px;
+        margin: 0 10px;
+        padding: 0 10px;
+        top: 5px;
+        font-size: 10px;
+        border: none;
+        bottom: 10px;
+    }
+
+    .audioTemTitle{
+        position: relative;
+        margin: 0 10px;
+        padding: 1px 10px;
+        top: 10px;
+        display: block;
+        color: #808080;
+        font-size: 10px;
+    }
+
+    .audioTemInput{
+        position: relative;
+        margin: 0 10px;
+        padding: 1px 10px;
+        display: block;
+        color: #808080;
+        font-size: 10px;
+        height: 15px;
+        left: 55px;
+        bottom: 65px;
     }
 
     .serverTem{
-        position: static;
+        position: relative;
         color: #808080;
         margin-left: 20px;
-        padding-top: 20px;
+        top: 5px;
+        font-size: 10px;
     }
 
-    .serverTem .progress{
-        positive: relative;
-        margin: 0px;
-        margin-left: 90px;
-        width: 100%;
+    .serverTemTitle{
+        position: relative;
+        margin: 0 10px;
+        padding: 1px 10px;
+        top: 10px;
+        display: block;
+        color: #808080;
+        font-size: 10px;
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+
+    .serverTemInput{
+        position: relative;
+        margin: 0 10px;
+        padding: 7px 12px;
+        display: block;
+        color: #808080;
+        font-size: 10px;
+        height: 15px;
+        left: 65px;
+        bottom: 68px;
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+
+    .serverTemInputProgress{
+        position: relative;
+        margin: 0 10px;
+        padding: 9px 12px;
+        left: 65px;
+        bottom: 85px;
+    }
+
+    .serverTemInputProgress .progress{
+        position: absolute;
+        top: 20px;
+        left: 11px;
+        height: 13px;
+        width: 100px;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+
+    .selectName{
+        position: relative;
+        height: 30px;
+        right: 150px;
+        top: 7px;
+        width: 250px;
+        background: #33353F;
+        color: #6599FF;
+        border: none;
+    }
+
+    .progressPercentual{
+        float: right;
+        width: 90px;
+        position: relative;
+        top: 20px;
+        left: 29px;
+    }
+
+    .updateTime{
+        position: relative;
+        right: 15px;
+        background: transparent;
+        border: none;
+        outline: none;
+    }
+
+    .nextShowSpl{
+        position: relative;
+        right: 15px;
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 350px;
+    }
+
+    .nextShowTime{
+        float: right;
+        width: 105px;
+        position: relative;
+        left: 29px;
+    }
+
+    .ChannelLamp{
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 60px;
+    }
+
+    .audioOption{
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 50px;
+    }
+    .serverProgressBar{
+        background-color: #00e68a;
+        fontSize: 8px;
+        color: black;
+        position: relative;
+        height: 20px;
+        bottom: 4px;
+        float: left;
     }
     </style>
 </head>
 <body>
 <template id="parent-component">
-    <div class="container">
-        <div class="sidebar" data-bind="style:{background: sidebarStatus}"></div>
-        <div class="navbar">
-            <div class="navicon" data-bind="visible: PlayingStatus, style:{color: PlayingStatus}"><i class="fa-solid fa-play">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
-                <div class="navicon" data-bind="visible: Pause, style:{color: Pause}"><i class="fa-solid fa-pause">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
-            <div class="navicon" data-bind="visible: Error, style:{color: Error}"><i class="fa-solid fa-triangle-exclamation">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
-            <div class="navicon" data-bind="visible: Sync, style:{color: Sync}"><i class="fa-solid fa-arrows-rotate">&nbsp;&nbsp;<input readonly data-bind="value: status"/></i></div>
-            <select data-bind="options: SelectedName, style: {position: 'Relative', right: '170px', top: '10px', width: '200px', background: 'Transparent', color: 'LightBlue'}"></select>
-            <div><i class="fa-solid fa-sliders-h" style="position: relative; float: right; font-size: 25px; margin-right: 10px; bottom: 10px;"></i></div>
+    <div class="monitoring_container">
+        <div class="monitoring_sidebar" data-bind="style:{background: sidebarStatus}"></div>
+        <div class="monitoring_navbar">
+            <div class="navicon" data-bind="visible: PlayingStatus, style:{color: PlayingStatus}"><i class="fa-solid fa-play"></i><input readonly data-bind="value: status"/></div>
+            <div class="navicon" data-bind="visible: Pause, style:{color: Pause}"><i class="fa-solid fa-pause"><input readonly data-bind="value: status"/></i></div>
+            <div class="navicon" data-bind="visible: Error, style:{color: Error}"><i class="fa-solid fa-triangle-exclamation"><input readonly data-bind="value: status"/></i></div>
+            <div class="navicon" data-bind="visible: Sync, style:{color: Sync}"><i class="fa-solid fa-arrows-rotate"><input readonly data-bind="value: status"/></i></div>
+            <select data-bind="options: SelectedName, css:{selectName: SelectedName}"></select>
+            <div class="navicon"><i class="fa-solid fa-ellipsis-vertical"></i></div>
+            <div class="navicon-slider"><i class="fa-solid fa-sliders-h" style="position: relative; top: 13px; right: 4px;"></i></div>
         </div>
-        <div class="middle">
+        <div class="monitoring_middle">
             <div data-bind="style: {color: ConnectionStatus}"><i class="fa-solid fa-plug"></i></div>
             <div data-bind="style: {color: Ping}"><i class="fa-solid fa-circle"></i></div>
             <div data-bind="style: {color: Calendar}"><i class="fa-solid fa-calendar-week"></i></div>
-            <div data-bind="visible: Liveplay, style:{color: Liveplay}"><i class="fab fa-chromecast"></i></div><br>
+            <div data-bind="visible: Liveplay, style:{color: Liveplay}"><i class="fab fa-chromecast"></i></div>
+
         </div>
-        <div class="right">
-            <input readonly class="movieTem" data-bind="value: spl, style:{width: '500px', fontWeight: 'Bold', color: 'White', fontSize: '20px'}" />
-            <br>
+
+        <div class="monitoring_right">
+            <input readonly class="movieTem" data-bind="value: spl, style:{width: '650px', color: '#F1F1F1', fontSize: '20px'}" />
             <input readonly class="movieTem" data-bind="value: current_clip, style:{width: '650px'}" />
-            <br>
-            <input readonly class="movieTem" data-bind="value: current_playtime" />
-            <input readonly class="movieTem" data-bind="value: playtime_left, visible: progressPercentual, style:{float: 'Right', width: '90px'}" />
-            <br>
+            <input readonly class="movieTem" data-bind="value: current_playtime, style: {position: 'Relative', top: '20px'}" />
+            <input readonly class="movieTem" data-bind="value: playtime_left, visible: progressPercentual, css:{progressPercentual:progressPercentual}"/>
             <div class="progress" data-bind="visible: progressPercentual">
               <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
             </div>
-
-            <label class="movieTem">&nbsp;Updated at:<input readonly data-bind="value: update_time, visible: progressPercentual, style: {background: 'Transparent', border: 'None', outline: 'None'}" /></label>
+            <span class="movieTem">Updated at:<input readonly class="movieTem" data-bind="value: update_time, visible: progressPercentual, css:{updateTime: progressPercentual}" /></span>
             <br>
-            <label class="movieTem">&nbsp;Next show:<input readonly data-bind="value: next_show_spl, , style: {background: 'Transparent', border: 'None', outline: 'None'}" /></label>
-            <input readonly class="movieTem" data-bind="value: next_show_time, style:{float: 'Right', width: '105px'}"/>
+            <span class="movieTem">Next show:<input readonly class="movieTem" data-bind="value: next_show_spl, css: {nextShowSpl: $data.next_show_spl}" /></span>
+            <input readonly class="movieTem" data-bind="value: next_show_time, css:{nextShowTime: $data.next_show_time}"/>
         </div>
-         <div class="projector" data-bind="style: {color: NoProjector}">
-             <br>
-            <span class="projectorTem">Projector 0</span><br>
+
+         <div class="monitoring_projector" data-bind="style: {color: NoProjector}">
+            <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 0</span><br>
              <!-- ko if: NoProjector -->
             <span class="projectorTem">No added device</span><br>
              <!-- /ko -->
@@ -201,57 +399,74 @@
             <span class="projectorTem" data-bind="style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
             <span class="projectorTem" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
             <span class="projectorTem" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span><br>
-            <span class="projectorTem">Channel:<input data-bind="value: channel, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}" /></span><br>
-            <span class="projectorTem">Lamp Hour:<input data-bind="value: lamphours, style:{color: LampHours, background: 'Transparent', border: 'None', outline: 'None', width: '100px', height: '20px', position: 'Relative', left: '10px'}" /></span><br><br>
-            <span class="projectorTem">Projector 1</span><br>
+            <div>
+                <span class="projectorTemTitle">Channel:</span>
+                <span class="projectorTemTitle">Lamp Hour:</span>
+            </div>
+            <div>
+                <input class="projectorTemInput" data-bind="value: channel, css:{ChannelLamp: $data.channel}" />
+                <input class="projectorTemInput" data-bind="value: lamphours, style:{color: LampHours}, css:{ChannelLamp: $data.lamphours}" />
+            </div>
+            <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
             <span class="projectorTem" data-bind="style: {color: Connection1}"><i class="fa-solid fa-video"></i></span>
             <span class="projectorTem" data-bind="style: {color: PowerStatus1}"><i class="fa-solid fa-power-off"></i></span>
             <span class="projectorTem" data-bind="style: {color: DowserStatus1}"><i class="fa-solid fa-record-vinyl"></i></span>
-            <span class="projectorTem" data-bind="style: {color: LampHoursColor1}"><i class="fa-solid fa-lightbulb"></i></span><br>
-            <span class="projectorTem">Channel:<input data-bind="value: channel1, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}" /></span><br>
-            <span class="projectorTem">Lamp Hour:<input data-bind="value: lamphours1, style:{color: LampHours1, background: 'Transparent', border: 'None', outline: 'None', width: '100px', height: '20px', position: 'Relative', left: '10px'}" /></span><br><br>
+            <span class="projectorTem" data-bind="style: {color: LampHoursColor1}"><i class="fa-solid fa-lightbulb"></i></span>
+            <div>
+                <span class="projectorTemTitle">Channel:</span>
+                <span class="projectorTemTitle">Lamp Hour:</span>
+            </div>
+            <div>
+                <input class="projectorTemInput" data-bind="value: channel1, css:{ChannelLamp: $data.channel1}" />
+                <input class="projectorTemInput" data-bind="value: lamphours1, style:{color: LampHours1}, css:{ChannelLamp: $data.channel1}" />
+            </div>
             <!-- /ko -->
          </div>
-         <div class="audio">
-             <br>
-            <span class="audioTem" >Audio</span><br>
+         <div class="monitoring_audio">
+            <span class="audioTem" style="color: #BBBBBB; font-size: 14px;">Audio</span>
             <span class="audioTem" data-bind="visible: AudioNormal, style:{color: AudioNormal}"><i class="fa-solid fa-volume-high"></i></span><br>
             <span class="audioTem" data-bind="visible: AudioMute, style:{color: AudioMute}"><i class="fa-solid fa-volume-xmark"></i></span><br>
-            <span class="audioTem">Input:<input readonly data-bind="value: input, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}" /></span>
-            <br>
-            <span class="audioTem">Level:<input readonly data-bind="value: level, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '25px'}" /></span>
-            <br/>
-            <span class="audioTem">Mute:<input readonly data-bind="value: mute, style:{color: AudioMute, background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '27px'}"/></span>
-            <br/>
-            <span class="audioTem">Decode:<input readonly data-bind="value: decode, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '10px'}" /></span>
-            <br/>
-            <span class="audioTem">Format:<input readonly data-bind="value: format, style:{background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '14px'}" /></span>
+            <div>
+                <span class="audioTemTitle">Input:</span>
+                <span class="audioTemTitle">Level:</span>
+                <span class="audioTemTitle">Mute:</span>
+                <span class="audioTemTitle">Decode:</span>
+                <span class="audioTemTitle">Format:</span>
+            </div>
+             <div>
+                <input class="audioTemInput" readonly data-bind="value: input, css:{audioOption: $data.input}" />
+                <input class="audioTemInput" readonly data-bind="value: level, css:{audioOption: $data.level}" />
+                <input class="audioTemInput" readonly data-bind="value: mute, style:{color: AudioMute}, css:{audioOption: $data.mute}"/>
+                <input class="audioTemInput" readonly data-bind="value: decode, css:{audioOption: $data.decode}" />
+                <input class="audioTemInput" readonly data-bind="value: format, css:{audioOption: $data.format}" />
+             </div>
          </div>
-         <div class="server">
-             <br>
-            <span class="serverTem">Server</span><br><br>
-            <span class="serverTem">Serial No:<input data-bind="value: serial, style:{background: 'Transparent', border: 'None', outline: 'None', width: '60px', height: '20px', position: 'Relative', left: '24px'}" /></span>
-            <br>
-            <span class="serverTem">Software:<input data-bind="value: software, style:{background: 'Transparent', border: 'None', outline: 'None', width: '100px', height: '20px', position: 'Relative', left: '24px'}" /></span>
-            <br>
-            <span class="serverTem">OS:<input data-bind="value: os, , style:{background: 'Transparent', border: 'None', outline: 'None', width: '120px', height: '20px', position: 'Relative', left: '60px'}" /></span>
-            <br>
-            <span class="serverTem" >Data usage:
-                <div class="progress" style="position:relative; bottom:15px; left: 18px; height: 15px; width: 100px;">
-                  <div class="progress-bar" role="progressbar" data-bind="style: {width: storageusage, background: '#00e68a' }"></div>
+         <div class="monitoring_server">
+            <span class="serverTem" style="color: #BBBBBB; font-size: 14px;">Server</span><br><br>
+            <div>
+                <span class="serverTemTitle">Serial No:</span>
+                <span class="serverTemTitle">Software:</span>
+                <span class="serverTemTitle">OS:</span>
+                <span class="serverTemTitle">Data usage:</span>
+                <span class="serverTemTitle">RAID Status:</span>
+            </div>
+            <div>
+                <input class="serverTemInput" data-bind="value: serial" />
+                <input class="serverTemInput" data-bind="value: software" />
+                <input class="serverTemInput" data-bind="value: os" />
+                <div class="serverTemInputProgress">
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" data-bind="text: freeSpace, style: {width: storageusage}, css:{serverProgressBar: freeSpace}"></div>
+                    </div>
                 </div>
-            </span>
-            <span class="serverTem">
-                RAID Status:<input readonly data-bind="value: raidstatus, style:{color: RaidStatus, background: 'Transparent', border: 'None', outline: 'None', width: '50px', height: '20px', position: 'Relative', left: '4px'}" />
-            </span>
+                <input class="serverTemInput" data-bind="value: raidstatus, style:{color: RaidStatus}" />
+            </div>
          </div>
     </div>
 </template>
 
 
-
 <parents-detail params="data: data"></parents-detail>
-
 
 
 <script>
@@ -262,12 +477,12 @@
         "id": "d79d7374-95d8-4a52-ae64-ba157dcaf0cd",
         "name": "12厅",
         "update_time": "17:40:56",
-        "status": "playing",
+        "status": "Playing",
         "connection": true,
         "ping": true,
         "scheduler_mode": true,
         "playbackInfo": {
-            "spl": "[2D] 珠峰队长2D-国语_1715_20220715_12厅",
+            "spl": "[2D] 珠峰队长2D<-国语_1715>_20220715_12厅",
             "current_clip": "(ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV)",
             "next_show_spl": "隐入尘烟2D-国语_1900_20220715_12厅",
             "next_show_time": "00:01:17:29",
@@ -301,7 +516,7 @@
             "channel": "1",
             "lamphours": "9471hr",
             "lamphourscolor": 0,
-            "available": false,
+            "available": true,
             "connection": true
         },
         "projector1": {
@@ -314,7 +529,7 @@
             "channel": "1",
             "lamphours": "9471hr",
             "lamphourscolor": 0,
-            "available": false,
+            "available": true,
             "connection": true
         },
         "audio": {
@@ -373,12 +588,17 @@
         this.os = params.data.server.os;
         this.storageusage = params.data.server.storageusage;
         this.raidstatus = params.data.server.raidstatus;
+        this.freespace = params.data.server.freespace;
 
 
 
         this.progressPercentual = ko.computed(function(){
             if(this.connection() == true)
                 return '' + ko.utils.unwrapObservable(this.playing_progress) + '%';
+        }, this)
+
+        this.freeSpace = ko.computed(function(){
+            return '' + ko.utils.unwrapObservable(this.freespace) + 'Free';
         }, this)
 
         this.SelectedName = ko.computed(function(){
@@ -388,198 +608,200 @@
         }, this)
 
         this.progressBar = ko.computed(function(){
-            if(this.status() == "error")
-                return 'Yellow';
+            if(this.status() == "Error")
+                return '#FFDD00';
             else
-                return '#00e68a';
+                return '#00CF75';
         }, this)
 
         this.sidebarStatus = ko.computed(function(){
-            if(this.status() == "playing")
-                return '#00e68a';
-            else if(this.status() == "pause")
+            if(this.status() == "Playing")
+                return '#00CF75';
+            else if(this.status() == "Pause")
                 return 'Blue';
-            else if(this.status() == "error")
-                return 'Red';
-            else if(this.status() == "sync")
+            else if(this.status() == "Error")
+                return '#FF3D3D';
+            else if(this.status() == "Sync")
                 return 'LightBlue';
         }, this)
 
         this.Connection0 = ko.computed(function(){
             if(this.connection0() == true)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.connection0() == false)
-                return 'Red';
+                return '#EB3C3D';
             else
-                return 'Grey';
+                return '#888888';
         }, this)
 
         this.Connection1 = ko.computed(function(){
             if(this.connection1() == true)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.connection1() == false)
-                return 'Red';
+                return '#EB3C3D';
             else
-                return 'Grey';
+                return '#888888';
         }, this)
 
         this.LampHoursColor = ko.computed(function(){
             if(this.lamphourscolor() < 1)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.lamphourscolor()  === 1)
-                return 'Yellow';
+                return '#FFDD00';
             else if(this.lamphourscolor() > 1)
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.LampHoursColor1 = ko.computed(function(){
             if(this.lamphourscolor1() < 1)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.lamphourscolor1()  === 1)
-                return 'Yellow';
+                return '#FFDD00';
             else if(this.lamphourscolor1() > 1)
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.LampHours = ko.computed(function(){
             if(this.dowserstatus() == true)
-                return '#00e68a';
+                return '#00CF75';
             if(this.dowserstatus() == false)
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.LampHours1 = ko.computed(function(){
             if(this.dowserstatus1() == true)
-                return '#00e68a';
+                return '#00CF75';
             if(this.dowserstatus1() == false)
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.AudioNormal = ko.computed(function(){
             if(this.mute() == "ON")
-                return '#00e68a';
+                return '#00CF75';
             else if (this.mute() != "ON" && this.mute() != "OFF")
-                return 'Grey';
+                return '#888888';
 
         }, this)
 
         this.AudioMute = ko.computed(function(){
             if(this.mute() == "OFF")
-                return 'Yellow';
+                return '#FFDD00';
         }, this)
 
         this.NoProjector = ko.computed(function(){
             if(this.available() == false && this.available1() == false)
-                return 'Grey';
+                return '#888888';
         }, this)
 
         this.StorageUsage = ko.computed(function(){
             if(this.storageusage() < 80)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.storageusage() >= 80 && this.storageusage() < 90)
-                return 'Yellow';
+                return '#FFDD00';
             else if(this.storageusage() >= 90)
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.ConnectionStatus = ko.computed(function(){
             if(this.connection() == true)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.connection() == false)
                 this.spl = "Unknown SPL";
                 this.current_clip = "Unknown Clip";
                 this.current_playtime = "00:00:00";
                 this.next_show_spl = "";
                 this.next_show_time = "";
-                return 'Grey';
+                return '#888888';
         }, this)
 
         this.Ping = ko.computed(function(){
             if(this.ping() == true)
-                return '#00e68a';
+                return '#00CF75';
             else
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.Calendar = ko.computed(function(){
 
-            if(this.scheduler() == true && this.status() != "error")
-                return '#00e68a';
+            if(this.scheduler() == true && this.status() != "Error")
+                return '#00CF75';
             else if(this.scheduler() == false)
-                return 'Red';
-            else if(this.scheduler() == true && this.status() == "error")
-                return 'Red';
+                return '#EB3C3D';
+            else if(this.scheduler() == true && this.status() == "Error")
+                return '#EB3C3D';
             else
-                return 'Grey';
+                return '#888888';
         }, this)
 
         this.Liveplay = ko.computed(function(){
             if(this.liveplay() == true && this.status() != "error" && this.connection() == true)
-                return '#00e68a';
+                return '#00CF75';
         }, this)
 
         this.Pause = ko.computed(function(){
-            if(this.status() == "pause")
+            if(this.status() == "Pause")
                 return 'Blue';
         }, this)
 
         this.Error = ko.computed(function(){
-            if(this.status() == "error")
-                return 'Red';
+            if(this.status() == "Error")
+                return '#EB3C3D';
         }, this)
 
         this.Sync = ko.computed(function(){
-            if(this.status() == "sync")
+            if(this.status() == "Sync")
                 return 'LightBlue';
         }, this)
 
         this.PlayingStatus = ko.computed(function(){
-            if((this.liveplay() == false && this.lmsenable() == false) || (this.liveplay() == true && this.lmsenable() == false) && this.status() == "pause")
+            if((this.liveplay() == false && this.lmsenable() == false) || (this.liveplay() == true && this.lmsenable() == false) && this.status() == "Pause")
                     return 'Blue';
-            else if(this.liveplay() == true && this.lmsenable() == true && this.status() == "playing")
-                    return '#00e68a';
+            else if(this.liveplay() == true && this.lmsenable() == true && this.status() == "Playing")
+                    return '#00CF75';
         }, this)
 
         this.RaidStatus = ko.computed(function(){
             if(this.raidstatus() == "OK")
-                return '#00e68a';
+                return '#00CF75';
             else if(this.raidstatus() == "degraded")
-                return 'Red';
+                return '#EB3C3D';
             else
-                return 'Grey';
+                return '#888888';
         }, this)
 
         this.PowerStatus = ko.computed(function(){
             if(this.powerstatus() == true)
-                return '#00e68a';
+                return '#00CF75';
             else
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.PowerStatus1 = ko.computed(function(){
             if(this.powerstatus1() == true)
-                return '#00e68a';
+                return '#00CF75';
             else
-                return 'Red';
+                return '#EB3C3D';
         }, this)
 
         this.DowserStatus = ko.computed(function(){
             if(this.dowserstatus() == true)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.dowserstatus() == false)
-                return 'Red';
+                return '#EB3C3D';
             else
-                return 'Grey';
+                return '#888888';
         }, this)
 
         this.DowserStatus1 = ko.computed(function(){
             if(this.dowserstatus1() == true)
-                return '#00e68a';
+                return '#00CF75';
             else if(this.dowserstatus1() == false)
-                return 'Red';
+                return '#EB3C3D';
             else
-                return 'Grey';
+                return '#888888';
         }, this)
+
+
       },
       template: {
         element: 'parent-component'
@@ -588,10 +810,6 @@
 
 
     ko.applyBindings();
-
-
-
-
 
 </script>
 </body>
