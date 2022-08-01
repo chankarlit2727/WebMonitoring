@@ -27,7 +27,7 @@
            'sidebar middle right projector audio server'
            'sidebar middle right projector audio server';
         grid-template-rows: 40px 185px 0px;
-        grid-template-columns: 30px 50px 1fr 240px 240px 240px ;
+        grid-template-columns: 30px 50px 1fr 200px 170px 200px ;
         content: "after";
 
     }
@@ -157,8 +157,9 @@
     .monitoring_right .progress{
         position: relative;
         background: #888888;
+        width: 96%;
         top: 10px;
-        margin: 10px 20px;
+        margin: 10px 17px;
         border-radius: 10px;
     }
 
@@ -166,7 +167,7 @@
         position: relative;
         color: #858586;
         top: 5px;
-        margin: 0px 15px;
+        margin: 0px 13px;
         font-size: 10px;
         margin-bottom: 10px;
     }
@@ -224,13 +225,14 @@
     .audioTemInput{
         position: relative;
         margin: 0 10px;
-        padding: 1px 10px;
+        padding: 1px 25px;
         display: block;
         color: #808080;
         font-size: 10px;
         height: 15px;
         left: 55px;
         bottom: 65px;
+
     }
 
     .serverTem{
@@ -275,6 +277,7 @@
         padding: 9px 12px;
         left: 65px;
         bottom: 85px;
+
     }
 
     .serverTemInputProgress .progress{
@@ -285,10 +288,12 @@
         width: 100px;
         border-radius: 10px;
         font-weight: bold;
+
     }
 
     .selectName{
         position: relative;
+        padding: 0 8px;
         height: 30px;
         right: 150px;
         top: 7px;
@@ -296,6 +301,8 @@
         background: #33353F;
         color: #6599FF;
         border: none;
+
+
     }
 
     .progressPercentual{
@@ -304,6 +311,7 @@
         position: relative;
         top: 20px;
         left: 29px;
+
     }
 
     .updateTime{
@@ -341,7 +349,7 @@
         background: transparent;
         border: none;
         outline: none;
-        width: 50px;
+        width: 70px;
     }
     .serverProgressBar{
         background-color: #00e68a;
@@ -351,6 +359,7 @@
         height: 20px;
         bottom: 4px;
         float: left;
+         font-size:8px;
     }
     </style>
 </head>
@@ -424,7 +433,8 @@
          </div>
          <div class="monitoring_audio">
             <span class="audioTem" style="color: #BBBBBB; font-size: 14px;">Audio</span>
-            <span class="audioTem" data-bind="visible: AudioNormal, style:{color: AudioNormal}"><i class="fa-solid fa-volume-high"></i></span><br>
+             <br>
+            <span class="audioTem" data-bind="visible: AudioNormal, style:{color: AudioNormal}"><i class="fa-solid fa-volume-high"></i></span>
             <span class="audioTem" data-bind="visible: AudioMute, style:{color: AudioMute}"><i class="fa-solid fa-volume-xmark"></i></span><br>
             <div>
                 <span class="audioTemTitle">Input:</span>
@@ -536,7 +546,7 @@
             "id": "ed7824dd-6086-4ac7-b927-0ee7fc994894",
             "input": "1",
             "level": "6.0",
-            "mute": "OFF",
+            "mute": "ON",
             "decode": "N/A",
             "format": "N/A",
             "available": true,
