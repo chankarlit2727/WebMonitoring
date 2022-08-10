@@ -27,6 +27,9 @@
         function stop() {
             console.log("Stop Clicked");
         }
+        function eject() {
+            console.log("Eject Clicked");
+        }
         function forward() {
             console.log("Forward Clicked");
         }
@@ -610,20 +613,20 @@
             <span class="showTime">Start in:<input readonly data-bind="value: next_show_time, css:{nextShowTime: $data.next_show_time}"/></span>
         </div>
         <div class="monitoring_controller">
-            <span class="controller_button" onclick="stepBackward();"><i class="fas fa-step-backward"></i></span>
-            <span class="controller_button" onclick="backward();"><i class="fas fa-backward"></i></span>
-            <span class="controller_button" onclick="pause();"><i class="fas fa-pause"></i></span>
-            <span class="controller_button" onclick="stop();"><i class="fas fa-stop"></i></span>
-            <span class="controller_button" onclick="stepForward();"><i class="fas fa-forward"></i></span>
-            <span class="controller_button" onclick="forward();"><i class="fas fa-step-forward"></i></span>
+            <span class="controller_button" data-bind="click: stepBackward"><i class="fas fa-step-backward"></i></span>
+            <span class="controller_button" data-bind="click: backward"><i class="fas fa-backward"></i></span>
+            <span class="controller_button" data-bind="click: pause"><i class="fas fa-pause"></i></span>
+            <span class="controller_button" data-bind="click: eject"><i class="fas fa-eject"></i></span>
+            <span class="controller_button" data-bind="click: stepForward"><i class="fas fa-forward"></i></span>
+            <span class="controller_button" data-bind="click: forward"><i class="fas fa-step-forward"></i></span>
         </div>
         <div class="monitoring_space">Space</div>
 
          <div class="monitoring_projector">
             <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
             <span class="projectorTem" data-bind="click: power,style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
-            <span class="projectorTem" onclick="lamp();" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
-            <span class="projectorTem" onclick="dowser();" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
+            <span class="projectorTem" data-bind="click: lamp" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
+            <span class="projectorTem" data-bind="click: dowser" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
             <div class="dropdown_projector">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Channel 1
@@ -638,8 +641,8 @@
              <!--ko if:status() == "Error"-->
              <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 2</span><br>
             <span class="projectorTem" data-bind="click: power,style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
-            <span class="projectorTem" onclick="lamp();" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
-            <span class="projectorTem" onclick="dowser();" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
+            <span class="projectorTem" data-bind="click: lamp" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
+            <span class="projectorTem" data-bind="dowser" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
             <div class="dropdown_projector">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Channel 1
@@ -806,20 +809,20 @@
             <span class="showTime">Start in:<input readonly data-bind="value: next_show_time, css:{nextShowTime: $data.next_show_time}"/></span>
         </div>
         <div class="monitoring_controller">
-            <span class="controller_button" onclick="stepBackward();"><i class="fas fa-step-backward"></i></span>
-            <span class="controller_button" onclick="backward();"><i class="fas fa-backward"></i></span>
-            <span class="controller_button" onclick="pause();"><i class="fas fa-pause"></i></span>
-            <span class="controller_button" onclick="stop();"><i class="fas fa-stop"></i></span>
-            <span class="controller_button" onclick="stepForward();"><i class="fas fa-forward"></i></span>
-            <span class="controller_button" onclick="forward();"><i class="fas fa-step-forward"></i></span>
+            <span class="controller_button" data-bind="click: stepBackward"><i class="fas fa-step-backward"></i></span>
+            <span class="controller_button" data-bind="click: backward"><i class="fas fa-backward"></i></span>
+            <span class="controller_button" data-bind="click: pause"><i class="fas fa-pause"></i></span>
+            <span class="controller_button" data-bind="click: stop"><i class="fas fa-stop"></i></span>
+            <span class="controller_button" data-bind="click: stepForward"><i class="fas fa-forward"></i></span>
+            <span class="controller_button" data-bind="click: forward"><i class="fas fa-step-forward"></i></span>
         </div>
         <div class="monitoring_space">Space</div>
 
          <div class="monitoring_projector">
             <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
             <span class="projectorTem" data-bind="click: power,style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
-            <span class="projectorTem" onclick="lamp();" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
-            <span class="projectorTem" onclick="dowser();" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
+            <span class="projectorTem" data-bind="click: lamp, style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
+            <span class="projectorTem" data-bind="click: dowser, style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
             <div class="dropdown_projector">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Channel 1
