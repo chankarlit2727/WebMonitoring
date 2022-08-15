@@ -14,10 +14,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js"></script>
     <script>
-        function slider() {
-            console.log("Slider Clicked");
-        }
+        var cards = document.querySelectorAll('.parent_monitoring_container');
+        [...cards].forEach((parent_monitoring_container)=>{
+            parent_monitoring_container.addEventListener('click', function(){
+                parent_monitoring_container.classList.toggle('is-flipped');
+            });
+         });
+    </script>
+    <script>
         function stepBackward() {
             console.log("Step Backward Clicked");
         }
@@ -75,7 +81,7 @@
                 <div class="navicon" data-bind="visible: Sync, style:{color: Sync}"><i class="fa-solid fa-arrows-rotate"><input readonly data-bind="value: status"/></i></div>
                  <div class="navicon" data-bind="visible: Offline, style:{color: Offline}"><i class="fa-solid fa-circle-xmark"></i><input readonly data-bind="value: status"/></div>
                 <select class="selectOption" data-bind="options: SelectedName, css:{selectName: SelectedName}"></select>
-                <a class="nav-link dropdown-toggle" id="dropdown-toggle-select" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                <a class="nav-link dropdown-toggle" id="parent_dropdown" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                 <div class="navicon-slider" data-bind="value: $data.active(), click: _switch"><i class="fa-solid fa-sliders-h" style="position: relative; top: 8px;"></i></div>
             </div>
             <div class="parent_monitoring_middle">
@@ -85,91 +91,127 @@
                 <div data-bind="style:{color: '#888888'}"><i class="fab fa-chromecast"></i></div>
             </div>
             <div class="parent_monitoring_right">
-                <input readonly class="movieTem" data-bind="value: spl, style:{width: '650px', color: '#F1F1F1', fontSize: '20px'}" />
-                <input readonly class="movieTem" data-bind="value: current_clip, style:{width: '650px', right: '160px'}" />
-                <input readonly class="movieTem" data-bind="value: current_playtime, css:{parentCurrentPlaytime:current_playtime}" />
-                <input readonly class="movieTem" data-bind="value: playtime_left, visible: progressPercentual, css:{parentProgressPercentual:progressPercentual}"/>
-                <div class="progress" data-bind="visible: progressPercentual">
-                  <div class="progress-bar" role="progressbar" data-bind="style: {width: 'None', background: progressBar}"></div>
+                    <div>
+                        <p class="movie_title" data-bind="text: spl, style:{color: '#F1F1F1', fontSize: '20px'}"></p>
+                        <p class="movie_clip" data-bind="text: current_clip"/></p>
+                    </div>
+                    <div>
+                        <p class="movieTem" data-bind="text: current_playtime, css:{parentCurrentPlaytime:current_playtime}" /></p>
+                        <p class="movieTem" data-bind="text: playtime_left, visible: progressPercentual, css:{parentProgressPercentual:progressPercentual}"/></p>
+                    </div>
+
+                    <div class="progress" data-bind="visible: progressPercentual">
+                      <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
+                    </div>
+                    <div>
+                        <span class="movie_update_time">Updated at:</span>
+                        <span class="movie_update_time" data-bind="text: update_time, visible: progressPercentual"></span>
+                        <span class="next_movie_start_time" data-bind="text: next_show_time"></span>
+                        <span class="next_movie_start_time">Start in:</span>
+                    </div>
+                    <div>
+                        <span class="next_movie_name">Next show:</span>
+                        <span class="next_movie_name" data-bind="text: next_show_spl"></span>
+                    </div>
                 </div>
-                <span class="movieTem">Updated at:<input readonly class="movieTem" data-bind="value: update_time, visible: progressPercentual, css:{updateTime: progressPercentual}" /></span>
-                <br>
-                <span class="movieTem">Next show:<input readonly class="movieTem" data-bind="value: next_show_spl, css: {nextShowSpl: $data.next_show_spl}" /></span>
-                <span class="showTime">Start in:<input readonly data-bind="value: next_show_time, css:{nextShowTime: $data.next_show_time}"/></span>
-            </div>
             <div class="parent_monitoring_projector" data-bind="style: {color: NoProjector}">
                 <!-- ko if: NoProjector -->
                     <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 0</span><br>
                     <span class="projectorTem">No added device</span><br>
                 <!-- /ko -->
                 <!-- ko ifnot: NoProjector -->
-                    <div class="projectorContainer">
-                        <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 0</span><br>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-video"></i></span>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-power-off"></i></span>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-record-vinyl"></i></span>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-lightbulb"></i></span>
-                        <div>
-                            <span class="projectorTemTitle">Channel:</span>
-                            <span class="projectorTemTitle">Lamp Hour:</span>
-                            <input class="projectorTemInput" data-bind="value: channel, css:{ChannelLamp: $data.channel}" />
-                            <input class="projectorTemInput" data-bind="value: lamphours, style:{color: '#888888'}, css:{ChannelLamp: $data.lamphours}" />
+                        <div class="projectorContainer_0">
+                            <div class="projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 0</div>
+                            <div class="projector_icon">
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-video"></i></span>
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-power-off"></i></span>
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-record-vinyl"></i></span>
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-lightbulb"></i></span>
+                            </div>
+                            <div class="projector_0">
+                                <div class="projector_0_channel">
+                                    <span>Channel:</span>
+                                    <span data-bind="text: channel, css:{ChannelLamp: $data.channel}" />
+                                </div>
+                                <div class="projector_0_lamp">
+                                    <span >Lamp Hour:</span>
+                                    <span data-bind="text: lamphours, style:{color: '#888888'}, css:{ChannelLamp: $data.lamphours}" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="projectorContainer">
-                        <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-video"></i></span>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-power-off"></i></span>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-record-vinyl"></i></span>
-                        <span class="projectorTem" data-bind="style: {color: '#888888'}"><i class="fa-solid fa-lightbulb"></i></span>
-                        <div>
-                            <span class="projectorTemTitle">Channel:</span>
-                            <span class="projectorTemTitle">Lamp Hour:</span>
-                            <input class="projectorTemInput" data-bind="value: channel1, css:{ChannelLamp: $data.channel1}" />
-                            <input class="projectorTemInput" data-bind="value: lamphours1, style:{color: '#888888'}, css:{ChannelLamp: $data.channel1}" />
+                        <div class="projectorContainer_1">
+                                <div class="projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 1</div>
+                            <div class="projector_icon">
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-video"></i></span>
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-power-off"></i></span>
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-record-vinyl"></i></span>
+                                <span data-bind="style: {color: '#888888'}"><i class="fa-solid fa-lightbulb"></i></span>
+                            </div>
+                            <div class="projector_1">
+                                <div class="projector_1_channel">
+                                    <span>Channel:</span>
+                                    <span data-bind="text: channel1, css:{ChannelLamp: $data.channel1}" />
+                                </div>
+                                <div class="projector_1_lamp">
+                                    <span>Lamp Hour:</span>
+                                    <span data-bind="text: lamphours1, style:{color: '#888888'}, css:{ChannelLamp: $data.lamphours1}" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                <!-- /ko -->
+                    <!-- /ko -->
             </div>
             <div class="parent_monitoring_audio">
-                <span class="audioTem" style="color: #BBBBBB; font-size: 14px;">Audio</span>
-                <br>
-                <span class="audioTem" data-bind="visible: AudioNormal, style:{color: '#888888'}"><i class="fa-solid fa-volume-high"></i></span>
-                <span class="audioTem" data-bind="visible: AudioMute, style:{color: AudioMute}"><i class="fa-solid fa-volume-xmark"></i></span><br>
-                <div>
-                    <span class="audioTemTitle">Input:</span>
-                    <span class="audioTemTitle">Level:</span>
-                    <span class="audioTemTitle">Mute:</span>
-                    <span class="audioTemTitle">Decode:</span>
-                    <span class="audioTemTitle">Format:</span>
-                </div>
-                <div>
-                    <input class="audioTemInput" readonly data-bind="value: input, css:{audioOption: $data.input}" />
-                    <input class="audioTemInput" readonly data-bind="value: level, css:{audioOption: $data.level}" />
-                    <input class="audioTemInput" readonly data-bind="value: mute, style:{color: AudioMute}, css:{audioOption: $data.mute}"/>
-                    <input class="audioTemInput" readonly data-bind="value: decode, css:{audioOption: $data.decode}" />
-                    <input class="audioTemInput" readonly data-bind="value: format, css:{audioOption: $data.format}" />
+                <div class="audio_title" style="color: #BBBBBB; font-size: 14px;">Audio</div>
+                <div class="audioTem" data-bind="visible: AudioNormal, style:{color: '#888888'}"><i class="fa-solid fa-volume-high"></i></div>
+                <div class="audioTem" data-bind="visible: AudioMute, style:{color: AudioMute}"><i class="fa-solid fa-volume-xmark"></i></div>
+                <div class="audioContainer">
+                    <div class="audio_input">
+                        <span>Input:</span>
+                        <span data-bind="text: input, css:{audioOption: $data.input}"></span>
+                    </div>
+                    <div class="audio_level">
+                        <span>Level:</span>
+                        <span data-bind="text: level, css:{audioOption: $data.level}"></span>
+                    </div>
+                    <div class="audio_mute">
+                        <span>Mute:</span>
+                        <span data-bind="text: mute, style:{color: AudioMute}, css:{audioOption: $data.mute}"></span>
+                    </div>
+                    <div class="audio_decode">
+                        <span>Decode:</span>
+                        <span data-bind="text: decode, css:{audioOption: $data.decode}"></span>
+                    </div>
+                    <div class="audio_format">
+                        <span>Format:</span>
+                        <span data-bind="text: format, css:{audioOption: $data.format}"></span>
+                    </div>
                 </div>
              </div>
             <div class="parent_monitoring_server">
-                <span class="serverTem" style="color: #BBBBBB; font-size: 14px;">Server</span><br><br>
-                <div>
-                    <span class="serverTemTitle">Serial No:</span>
-                    <span class="serverTemTitle">Software:</span>
-                    <span class="serverTemTitle">OS:</span>
-                    <span class="serverTemTitle">Data usage:</span>
-                    <span class="serverTemTitle">RAID Status:</span>
-                </div>
-                <div>
-                    <input class="serverTemInput" data-bind="value: serial" />
-                    <input class="serverTemInput" data-bind="value: software" />
-                    <input class="serverTemInput" data-bind="value: os" />
-                    <div class="serverTemInputProgress">
-                        <div class="progress">
-                          <div class="progress-bar" role="progressbar" data-bind="text: freeSpace, style: {width: 'None'}"></div>
-                        </div>
+                <div class="server_title" style="color: #BBBBBB; font-size: 14px;">Server</div>
+                <div class="serverContainer">
+                    <div class="server_serial">
+                        <span>Serial No:</span>
+                        <span data-bind="text: serial"></span>
                     </div>
-                    <input class="serverTemInput" data-bind="value: raidstatus, style:{color: '#888888'}" />
+                    <div class="server_software">
+                        <span>Software:</span>
+                        <span data-bind="text: software"></span>
+                    </div>
+                    <div class="server_os">
+                        <span>OS:</span>
+                        <span data-bind="text: os"></span>
+                    </div>
+                    <div class="server_data_usage">
+                        <span>Data usage:</span>
+                        <span class="progress">
+                            <span class="progress-bar" role="progressbar" data-bind="style: {width: 'None'}"></span>
+                        </span>
+                    </div>
+                    <div class="server_raid">
+                        <span>RAID Status:</span>
+                        <span data-bind="text: raidstatus, style:{color: '#888888'}"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,8 +225,8 @@
                     <div class="navicon" data-bind="visible: Error, style:{color: Error}"><i class="fa-solid fa-triangle-exclamation"></i><input readonly data-bind="value: status"/></div>
                     <div class="navicon" data-bind="visible: Sync, style:{color: Sync}"><i class="fa-solid fa-arrows-rotate"><input readonly data-bind="value: status"/></i></div>
                     <div class="navicon" data-bind="visible: Offline, style:{color: Offline}"><i class="fa-solid fa-circle-xmark"></i><input readonly data-bind="value: status"/></div>
-                    <select class="selectOption" data-bind="options: SelectedName, css:{selectName: SelectedName}"></select>
-                    <a class="nav-link dropdown-toggle" id="dropdown-toggle-select" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                    <select data-bind="options: SelectedName, css:{selectName: SelectedName}"></select>
+                    <a class="nav-link dropdown-toggle" id="parent_dropdown" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                     <div class="navicon-slider" data-bind="value: $data.active(), click: _switch"><i class="fa-solid fa-sliders-h" style="position: relative; top: 8px;"></i></div>
                 </div>
                 <div class="parent_monitoring_middle">
@@ -194,8 +236,10 @@
                     <div data-bind="visible: Liveplay, style:{color: Liveplay}"><i class="fab fa-chromecast"></i></div>
                 </div>
                 <div class="parent_monitoring_right">
-                    <p class="movieTem" data-bind="text: spl, style:{width: '650px', color: '#F1F1F1', fontSize: '20px'}"></p>
-                    <p class="movieTem" data-bind="text: current_clip, style:{width: '650px'}" /></p>
+                    <div>
+                        <p class="movie_title" data-bind="text: spl, style:{color: '#F1F1F1', fontSize: '20px'}"></p>
+                        <p class="movie_clip" data-bind="text: current_clip"/></p>
+                    </div>
                     <div>
                         <p class="movieTem" data-bind="text: current_playtime, css:{parentCurrentPlaytime:current_playtime}" /></p>
                         <p class="movieTem" data-bind="text: playtime_left, visible: progressPercentual, css:{parentProgressPercentual:progressPercentual}"/></p>
@@ -204,86 +248,117 @@
                     <div class="progress" data-bind="visible: progressPercentual">
                       <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
                     </div>
-                    <span class="movieTem">Updated at:<input readonly class="movieTem" data-bind="value: update_time, visible: progressPercentual, css:{updateTime: progressPercentual}" /></span>
-                    <br>
-                    <span class="movieTem">Next show:<input readonly class="movieTem" data-bind="value: next_show_spl, css: {nextShowSpl: $data.next_show_spl}" /></span>
-                    <span class="showTime">Start in:<input readonly data-bind="value: next_show_time, css:{nextShowTime: $data.next_show_time}"/></span>
+                    <div>
+                        <span class="movie_update_time">Updated at:</span>
+                        <span class="movie_update_time" data-bind="text: update_time, visible: progressPercentual"></span>
+                        <span class="next_movie_start_time" data-bind="text: next_show_time"></span>
+                        <span class="next_movie_start_time">Start in:</span>
+                    </div>
+                    <div>
+                        <span class="next_movie_name">Next show:</span>
+                        <span class="next_movie_name" data-bind="text: next_show_spl"></span>
+                    </div>
                 </div>
                 <div class="parent_monitoring_projector" data-bind="style: {color: NoProjector}">
                     <!-- ko if: NoProjector -->
-                        <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 0</span><br>
-                        <span class="projectorTem">No added device</span><br>
+                        <div class="projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 0</div>
+                        <div class="projectorTem">No added device</div>
                     <!-- /ko -->
                     <!-- ko ifnot: NoProjector -->
-                        <div class="projectorContainer">
-                            <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 0</span><br>
-                            <span class="projectorTem" data-bind="style: {color: Connection0}"><i class="fa-solid fa-video"></i></span>
-                            <span class="projectorTem" data-bind="style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
-                            <span class="projectorTem" data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
-                            <span class="projectorTem" data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
-                            <div>
-                                <span class="projectorTemTitle">Channel:</span>
-                                <span class="projectorTemTitle">Lamp Hour:</span>
-                                <input class="projectorTemInput" data-bind="value: channel, css:{ChannelLamp: $data.channel}" />
-                                <input class="projectorTemInput" data-bind="value: lamphours, style:{color: LampHours}, css:{ChannelLamp: $data.lamphours}" />
+                        <div class="projectorContainer_0">
+                            <div class="projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 0</div>
+                            <div class="projector_icon">
+                                <span data-bind="style: {color: Connection0}"><i class="fa-solid fa-video"></i></span>
+                                <span data-bind="style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
+                                <span data-bind="style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
+                                <span data-bind="style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
+                            </div>
+                            <div class="projector_0">
+                                <div class="projector_0_channel">
+                                    <span>Channel:</span>
+                                    <span data-bind="text: channel, css:{ChannelLamp: $data.channel}" />
+                                </div>
+                                <div class="projector_0_lamp">
+                                    <span >Lamp Hour:</span>
+                                    <span data-bind="text: lamphours, style:{color: LampHours}, css:{ChannelLamp: $data.lamphours}" />
+                                </div>
                             </div>
                         </div>
-                        <div class="projectorContainer">
-                            <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
-                            <span class="projectorTem" data-bind="style: {color: Connection1}"><i class="fa-solid fa-video"></i></span>
-                            <span class="projectorTem" data-bind="style: {color: PowerStatus1}"><i class="fa-solid fa-power-off"></i></span>
-                            <span class="projectorTem" data-bind="style: {color: DowserStatus1}"><i class="fa-solid fa-record-vinyl"></i></span>
-                            <span class="projectorTem" data-bind="style: {color: LampHoursColor1}"><i class="fa-solid fa-lightbulb"></i></span>
-                            <div>
-                                <span class="projectorTemTitle">Channel:</span>
-                                <span class="projectorTemTitle">Lamp Hour:</span>
-                                <input class="projectorTemInput" data-bind="value: channel1, css:{ChannelLamp: $data.channel1}" />
-                                <input class="projectorTemInput" data-bind="value: lamphours1, style:{color: LampHours1}, css:{ChannelLamp: $data.channel1}" />
+                        <div class="projectorContainer_1">
+                                <div class="projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 1</div>
+                            <div class="projector_icon">
+                                <span data-bind="style: {color: Connection1}"><i class="fa-solid fa-video"></i></span>
+                                <span data-bind="style: {color: PowerStatus1}"><i class="fa-solid fa-power-off"></i></span>
+                                <span data-bind="style: {color: DowserStatus1}"><i class="fa-solid fa-record-vinyl"></i></span>
+                                <span data-bind="style: {color: LampHoursColor1}"><i class="fa-solid fa-lightbulb"></i></span>
+                            </div>
+                            <div class="projector_1">
+                                <div class="projector_1_channel">
+                                    <span>Channel:</span>
+                                    <span data-bind="text: channel1, css:{ChannelLamp: $data.channel1}" />
+                                </div>
+                                <div class="projector_1_lamp">
+                                    <span>Lamp Hour:</span>
+                                    <span data-bind="text: lamphours1, style:{color: LampHours1}, css:{ChannelLamp: $data.lamphours1}" />
+                                </div>
                             </div>
                         </div>
                     <!-- /ko -->
                 </div>
                 <div class="parent_monitoring_audio">
-                    <span class="audioTem" style="color: #BBBBBB; font-size: 14px;">Audio</span>
-                     <br>
-                    <span class="audioTem" data-bind="visible: AudioNormal, style:{color: AudioNormal}"><i class="fa-solid fa-volume-high"></i></span>
-                    <span class="audioTem" data-bind="visible: AudioMute, style:{color: AudioMute}"><i class="fa-solid fa-volume-xmark"></i></span><br>
-                    <div>
-                        <span class="audioTemTitle">Input:</span>
-                        <span class="audioTemTitle">Level:</span>
-                        <span class="audioTemTitle">Mute:</span>
-                        <span class="audioTemTitle">Decode:</span>
-                        <span class="audioTemTitle">Format:</span>
-                    </div>
-                    <div>
-                        <input class="audioTemInput" readonly data-bind="value: input, css:{audioOption: $data.input}" />
-                        <input class="audioTemInput" readonly data-bind="value: level, css:{audioOption: $data.level}" />
-                        <input class="audioTemInput" readonly data-bind="value: mute, style:{color: AudioMute}, css:{audioOption: $data.mute}"/>
-                        <input class="audioTemInput" readonly data-bind="value: decode, css:{audioOption: $data.decode}" />
-                        <input class="audioTemInput" readonly data-bind="value: format, css:{audioOption: $data.format}" />
+                    <div class="audio_title" style="color: #BBBBBB; font-size: 14px;">Audio</div>
+                    <div class="audioTem" data-bind="visible: AudioNormal, style:{color: AudioNormal}"><i class="fa-solid fa-volume-high"></i></div>
+                    <div class="audioTem" data-bind="visible: AudioMute, style:{color: AudioMute}"><i class="fa-solid fa-volume-xmark"></i></div>
+                    <div class="audioContainer">
+                        <div class="audio_input">
+                            <span>Input:</span>
+                            <span data-bind="text: input, css:{audioOption: $data.input}"></span>
+                        </div>
+                        <div class="audio_level">
+                            <span>Level:</span>
+                            <span data-bind="text: level, css:{audioOption: $data.level}"></span>
+                        </div>
+                        <div class="audio_mute">
+                            <span>Mute:</span>
+                            <span data-bind="text: mute, style:{color: AudioMute}, css:{audioOption: $data.mute}"></span>
+                        </div>
+                        <div class="audio_decode">
+                            <span>Decode:</span>
+                            <span data-bind="text: decode, css:{audioOption: $data.decode}"></span>
+                        </div>
+                        <div class="audio_format">
+                            <span>Format:</span>
+                            <span data-bind="text: format, css:{audioOption: $data.format}"></span>
+                        </div>
                     </div>
                  </div>
                 <div class="parent_monitoring_server">
-                    <span class="serverTem" style="color: #BBBBBB; font-size: 14px;">Server</span><br><br>
-                    <div>
-                        <span class="serverTemTitle">Serial No:</span>
-                        <span class="serverTemTitle">Software:</span>
-                        <span class="serverTemTitle">OS:</span>
-                        <span class="serverTemTitle">Data usage:</span>
-                        <span class="serverTemTitle">RAID Status:</span>
+                <div class="server_title" style="color: #BBBBBB; font-size: 14px;">Server</div>
+                <div class="serverContainer">
+                    <div class="server_serial">
+                        <span>Serial No:</span>
+                        <span data-bind="text: serial"></span>
                     </div>
-                    <div>
-                        <input class="serverTemInput" data-bind="value: serial" />
-                        <input class="serverTemInput" data-bind="value: software" />
-                        <input class="serverTemInput" data-bind="value: os" />
-                        <div class="serverTemInputProgress">
-                            <div class="progress">
-                              <div class="progress-bar" role="progressbar" data-bind="text: freeSpace, style: {width: storageusage, background: progressBar}"></div>
-                            </div>
-                        </div>
-                        <input class="serverTemInput" data-bind="value: raidstatus, style:{color: RaidStatus}" />
+                    <div class="server_software">
+                        <span>Software:</span>
+                        <span data-bind="text: software"></span>
+                    </div>
+                    <div class="server_os">
+                        <span>OS:</span>
+                        <span data-bind="text: os"></span>
+                    </div>
+                    <div class="server_data_usage">
+                        <span>Data usage:</span>
+                        <span class="progress">
+                            <span class="progress-bar" role="progressbar" data-bind="text: freeSpace, style: {width: storageusage, background: progressBar}"></span>
+                        </span>
+                    </div>
+                    <div class="server_raid">
+                        <span>RAID Status:</span>
+                        <span data-bind="text: raidstatus, style:{color: '#888888'}"></span>
                     </div>
                 </div>
+            </div>
             </div>
         <!--/ko-->
     <!--/ko-->
@@ -294,8 +369,8 @@
             <div class="edit_monitoring_sidebar" data-bind="style:{background: sidebarStatus}"></div>
             <div class="edit_monitoring_navbar">
                 <div class="navicon" data-bind="style:{color: Offline}"><i class="fa-solid fa-circle-xmark"></i><input readonly data-bind="value: status"/></div>
-                <select class="selectOption" data-bind="options: SelectedName, css:{selectName: SelectedName}"></select>
-                <a class="nav-link dropdown-toggle" id="dropdown-toggle-select1" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                <select class="selectOption" data-bind="options: SelectedName, css:{child_select_name: SelectedName}"></select>
+                <a class="nav-link dropdown-toggle" id="child_dropdown" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                 <div class="navicon-slider" data-bind="value: $data.active(), click: _switch"><i class="fa-solid fa-arrow-left" style="position: relative; top: 2px;"></i></div>
             </div>
             <div class="edit_monitoring_middle">
@@ -305,18 +380,28 @@
                 <div data-bind="visible: Liveplay, style:{color: '#888888'}"><i class="fab fa-chromecast"></i></div>
             </div>
             <div class="edit_monitoring_right">
-                <input readonly class="movieTem" data-bind="value: spl, style:{width: '650px', color: '#F1F1F1', fontSize: '20px'}" />
-                <input readonly class="movieTem" data-bind="value: current_clip, style:{width: '650px'}" />
-                <input readonly class="movieTem offlineClass" data-bind="value: current_playtime, css:{currentPlaytime:current_playtime}" />
-                <input readonly class="movieTem offlineClass" data-bind="value: playtime_left, visible: progressPercentual, css:{progressPercentual:progressPercentual}"/>
-                <div class="progress" data-bind="style: {background: '#33353F'}">
-                  <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: 'None'}"></div>
+                    <div>
+                        <p class="movie_title" data-bind="text: spl, style:{color: '#F1F1F1', fontSize: '20px'}"></p>
+                        <p class="movie_clip" data-bind="text: current_clip"/></p>
+                    </div>
+                    <div>
+                        <p class="movieTem" data-bind="text: current_playtime, css:{parentCurrentPlaytime:current_playtime}" /></p>
+                        <p class="movieTem" data-bind="text: playtime_left, visible: progressPercentual, css:{parentProgressPercentual:progressPercentual}"/></p>
+                    </div>
+                    <div class="progress" data-bind="style: {background: '#33353F'}">
+                      <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
+                    </div>
+                    <div>
+                        <span class="movie_update_time">Updated at:</span>
+                        <span class="movie_update_time" data-bind="text: update_time, visible: progressPercentual"></span>
+                        <span class="next_movie_start_time" data-bind="text: next_show_time"></span>
+                        <span class="next_movie_start_time">Start in:</span>
+                    </div>
+                    <div>
+                        <span class="next_movie_name">Next show:</span>
+                        <span class="next_movie_name" data-bind="text: next_show_spl"></span>
+                    </div>
                 </div>
-                <span class="movieTem offlineClass">Updated at:<input readonly class="movieTem offlineClass" data-bind="value: update_time, visible: progressPercentual, css:{updateTime: progressPercentual}" /></span>
-                <br>
-                <span class="movieTem offlineClass">Next show:<input readonly class="movieTem offlineClass" data-bind="value: next_show_spl, css: {nextShowSpl: $data.next_show_spl}" /></span>
-                <span class="showTime offlineClass">Start in:<input readonly class="offlineClass" data-bind="value: next_show_time, css:{nextShowTime: $data.next_show_time}, style:{color:'#B9B9B9'}"/></span>
-            </div>
             <div class="edit_monitoring_controller">
                 <span class="controller_button offlineClass"><i class="fas fa-step-backward"></i></span>
                 <span class="controller_button offlineClass"><i class="fas fa-backward"></i></span>
@@ -327,7 +412,7 @@
             </div>
             <div class="edit_monitoring_space">Space</div>
             <div class="edit_monitoring_projector">
-                <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
+                <div class="edit_projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 1</div>
                 <span class="projectorTem offlineClass" data-bind="click: power"><i class="fa-solid fa-power-off"></i></span>
                 <span class="projectorTem offlineClass" data-bind="click: lamp"><i class="fa-solid fa-lightbulb"></i></span>
                 <span class="projectorTem offlineClass" data-bind="click: dowser"><i class="fa-solid fa-record-vinyl"></i></span>
@@ -341,10 +426,23 @@
                         <a class="dropdown-item" href="#">Channel 4</a>
                       </div>
                 </div>
+                <div class="edit_projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 2</div>
+                    <span class="projectorTem offlineClass" data-bind="click: power,style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
+                    <span class="projectorTem offlineClass" data-bind="click: lamp, style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
+                    <span class="projectorTem offlineClass" data-bind="dowser, style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
+                    <div class="dropdown_projector offlineClass">
+                          <button style="background: #474B59; color:#6E717B" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Channel 1
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Channel 2</a>
+                            <a class="dropdown-item" href="#">Channel 3</a>
+                            <a class="dropdown-item" href="#">Channel 4</a>
+                          </div>
+                    </div>
              </div>
             <div class="edit_monitoring_audio">
-                <span class="audioTem" style="color: #BBBBBB; font-size: 14px;">Audio</span>
-                 <br>
+                <div class="edit_audio_title" style="color: #BBBBBB; font-size: 14px;">Audio</div>
                 <span class="audioTem offlineClass" data-bind="visible: AudioNormal"><i class="fa-solid fa-volume-high" data-bind="click: Mute"></i>
                     <div class="audio_range">
                       <input type="range" class="slider" data-bind="disable: audioRange, value: audioRange">
@@ -356,7 +454,6 @@
                 <div class="automation_cue">
                     <span onclick="automationCue();"><i class="fa fa-cogs"></i> Automation Cue</span>
                 </div>
-
                 <div class="dropdown_audio offlineClass">
                       <button style="background: #474B59; color:#6E717B" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Channel 1
@@ -382,8 +479,8 @@
                 <div class="navicon" data-bind="visible: Pause, style:{color: Pause}"><i class="fa-solid fa-pause"></i><input readonly data-bind="value: status"/></div>
                 <div class="navicon" data-bind="visible: Error, style:{color: Error}"><i class="fa-solid fa-triangle-exclamation"></i><input readonly data-bind="value: status"/></div>
                 <div class="navicon" data-bind="visible: Sync, style:{color: Sync}"><i class="fa-solid fa-arrows-rotate"><input readonly data-bind="value: status"/></i></div>
-                <select class="selectOption" data-bind="options: SelectedName, css:{selectName: SelectedName}"></select>
-                <a class="nav-link dropdown-toggle" id="dropdown-toggle-select2" href="#" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                <select class="selectOption" data-bind="options: SelectedName, css:{child_select_name: SelectedName}"></select>
+                <a class="nav-link dropdown-toggle" id="child_dropdown" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                 <div class="navicon-slider" data-bind="value: $data.active(), click: _switch"><i class="fa-solid fa-arrow-left" style="position: relative; top: 2px;"></i></div>
             </div>
             <div class="edit_monitoring_middle">
@@ -393,18 +490,29 @@
                 <div data-bind="visible: Liveplay, style:{color: Liveplay}"><i class="fab fa-chromecast"></i></div>
             </div>
             <div class="edit_monitoring_right">
-                <input readonly class="movieTem" data-bind="value: spl, style:{width: '650px', color: '#F1F1F1', fontSize: '20px'}" />
-                <input readonly class="movieTem" data-bind="value: current_clip, style:{width: '650px'}" />
-                <input readonly class="movieTem" data-bind="value: current_playtime, css:{currentPlaytime:current_playtime}" />
-                <input readonly class="movieTem" data-bind="value: playtime_left, visible: progressPercentual, css:{progressPercentual:progressPercentual}"/>
-                <div class="progress" data-bind="visible: progressPercentual">
-                  <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
+                    <div>
+                        <p class="movie_title" data-bind="text: spl, style:{color: '#F1F1F1', fontSize: '20px'}"></p>
+                        <p class="movie_clip" data-bind="text: current_clip"/></p>
+                    </div>
+                    <div>
+                        <p class="movieTem" data-bind="text: current_playtime, css:{parentCurrentPlaytime:current_playtime}" /></p>
+                        <p class="movieTem" data-bind="text: playtime_left, visible: progressPercentual, css:{parentProgressPercentual:progressPercentual}"/></p>
+                    </div>
+
+                    <div class="progress" data-bind="style: {background: '#33353F'}">
+                      <div class="progress-bar" role="progressbar" data-bind="style: {width: progressPercentual, background: progressBar}"></div>
+                    </div>
+                    <div>
+                        <span class="movie_update_time">Updated at:</span>
+                        <span class="movie_update_time" data-bind="text: update_time, visible: progressPercentual"></span>
+                        <span class="next_movie_start_time" data-bind="text: next_show_time"></span>
+                        <span class="next_movie_start_time">Start in:</span>
+                    </div>
+                    <div>
+                        <span class="next_movie_name">Next show:</span>
+                        <span class="next_movie_name" data-bind="text: next_show_spl"></span>
+                    </div>
                 </div>
-                <span class="movieTem">Updated at:<input readonly class="movieTem" data-bind="value: update_time, visible: progressPercentual, css:{updateTime: progressPercentual}" /></span>
-                <br>
-                <span class="movieTem">Next show:<input readonly class="movieTem" data-bind="value: next_show_spl, css: {nextShowSpl: $data.next_show_spl}" /></span>
-                <span class="showTime">Start in:<input readonly data-bind="value: next_show_time, css:{nextShowTime: $data.next_show_time}"/></span>
-            </div>
             <div class="edit_monitoring_controller">
                 <span class="controller_button" data-bind="click: stepBackward"><i class="fas fa-step-backward"></i></span>
                 <span class="controller_button" data-bind="click: backward"><i class="fas fa-backward"></i></span>
@@ -418,7 +526,7 @@
             </div>
             <div class="edit_monitoring_space">Space</div>
             <div class="edit_monitoring_projector">
-                <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
+                <span class="edit_projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 1</span><br>
                 <span class="projectorTem" data-bind="click: power,style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
                 <span class="projectorTem" data-bind="click: lamp , style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
                 <span class="projectorTem" data-bind="click: dowser, style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
@@ -432,9 +540,7 @@
                         <a class="dropdown-item" href="#">Channel 4</a>
                       </div>
                 </div>
-                <br>
-                <!--ko if:status() == "Error"-->
-                    <span class="projectorTem" style="color: #BBBBBB; font-size: 14px;">Projector 2</span><br>
+                    <div class="edit_projector_title" style="color: #BBBBBB; font-size: 14px;">Projector 2</div>
                     <span class="projectorTem" data-bind="click: power,style: {color: PowerStatus}"><i class="fa-solid fa-power-off"></i></span>
                     <span class="projectorTem" data-bind="click: lamp, style: {color: LampHoursColor}"><i class="fa-solid fa-lightbulb"></i></span>
                     <span class="projectorTem" data-bind="dowser, style: {color: DowserStatus}"><i class="fa-solid fa-record-vinyl"></i></span>
@@ -448,11 +554,9 @@
                             <a class="dropdown-item" href="#">Channel 4</a>
                           </div>
                     </div>
-                <!--/ko-->
              </div>
             <div class="edit_monitoring_audio">
-                <span class="audioTem" style="color: #BBBBBB; font-size: 14px;">Audio</span>
-                 <br>
+                <div class="edit_audio_title" style="color: #BBBBBB; font-size: 14px;">Audio</div>
                 <span class="audioTem" data-bind="visible: AudioNormal, style:{color: AudioNormal}"><i class="fa-solid fa-volume-high" data-bind="click: Mute"></i>
                     <div class="audio_range"><input class="custom-range" type="range" id="customRange1" data-bind="value: audioRange"></div>
                 </span>
@@ -495,14 +599,14 @@
         "id": "d79d7374-95d8-4a52-ae64-ba157dcaf0cd",
         "name": "12厅",
         "update_time": "17:40:56",
-        "status": "Error",
+        "status": "Playing",
         "connection": true,
         "ping": true,
         "scheduler_mode": true,
         "playbackInfo": {
             "spl": "Wonder Woman",
             "current_clip": "(ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV)",
-            "next_show_spl": "隐入尘烟2D-国语_1900_20220715_12厅隐入尘烟2D-国语_1900_20220715_12厅隐入尘烟2D-国语_1900_20220715_12厅隐入尘烟2D-国语_1900_20220715_12厅隐入尘烟2D-国语_1900_20220715_12厅隐入尘烟2D-国语_1900_20220715_12厅隐入尘烟2D-国语_1900_20220715_12厅隐入尘烟2D-国语_1900_20220715_12厅",
+            "next_show_spl": "隐入尘烟2D-国语_1900_20220715_12厅",
             "next_show_time": "00:01:17:29",
             "current_playtime": "00:27:22",
             "playtime_left": "-00:58:15",
@@ -569,7 +673,7 @@
         "ping": true,
         "scheduler_mode": true,
         "playbackInfo": {
-            "spl": "[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D] 珠峰队长2D<-国语_1715>_20220715_12厅",
+            "spl": "[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D]",
             "current_clip": "(ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV)",
             "next_show_spl": "隐入尘烟2D-国语_1900_20220715_12厅",
             "next_show_time": "00:01:17:29",
@@ -638,7 +742,7 @@
         "ping": true,
         "scheduler_mode": true,
         "playbackInfo": {
-            "spl": "[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D] 珠峰队长2D<-国语_1715>_20220715_12厅",
+            "spl": "[2D] 珠峰队长2D<-国语_1715>_20220715_12厅[2D]",
             "current_clip": "(ZhuFengDuiZhang_FTR-2D-24_S_CMN-QMS-EN_51_2K_DXDY_20220217_SFG_IOP_OV)",
             "next_show_spl": "隐入尘烟2D-国语_1900_20220715_12厅",
             "next_show_time": "00:01:17:29",

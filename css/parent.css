@@ -2,6 +2,10 @@
         content: none;
     }
 
+    .parent_monitoring_container .parent_monitoring_navbar .navicon-slider.is-flipped {
+        transform: translateX(-100%) rotateY(-180deg);
+    }
+
     .parent_monitoring_container{
         position: relative;
         right: 13px;
@@ -126,17 +130,30 @@
      }
 
 
-
     .parent_monitoring_right .movieTem{
         position: relative;
-
         margin-left: 15px;
+        top: 5px;
         background: transparent;
         font-size: 12px;
         color: #717274;
         border: none;
         outline: none;
     }
+
+    .parent_monitoring_right .movie_title, .parent_monitoring_right .movie_clip{
+        width: 650px;
+        color: #717274;
+        font-size: 12px;
+        margin: 5px;
+        margin-left: 15px;
+        padding-bottom: 5px;
+    }
+
+    .parent_monitoring_right .movie_clip{
+        margin-top: -10px;
+    }
+
 
     .parent_monitoring_right .progress{
         position: relative;
@@ -147,15 +164,26 @@
         border-radius: 10px;
     }
 
-    .parent_monitoring_right .showTime{
-        position: relative;
-        bottom: 20px;
-        float: right;
-        background: transparent;
-        font-size: 12px;
+    .parent_monitoring_right .movie_update_time{
         color: #717274;
-        border: none;
-        outline: none;
+        font-size: 12px;
+        margin-left: 15px;
+    }
+
+    .parent_monitoring_right .next_movie_start_time{
+        color: #717274;
+        font-size: 12px;
+        float: right;
+        margin-right: 12px;
+        padding-right: 12px;
+
+    }
+
+    .parent_monitoring_right .next_movie_name{
+        color: #717274;
+        font-size: 12px;
+        margin-left: 15px;
+        padding-right: 5px;
     }
 
     .parent_monitoring_projector .projectorTem{
@@ -164,41 +192,39 @@
         top: 5px;
         margin: 0px 13px;
         font-size: 10px;
-        margin-bottom: 12px;
+
     }
 
-    .parent_monitoring_projector .projectorContainer{
-        margin-bottom: -20px;
+    .parent_monitoring_projector .projector_title{
+        margin-top: 5px;
+        margin-left: 12px;
     }
 
-    .parent_monitoring_projector .projectorTemTitle{
-        position: relative;
+    .parent_monitoring_projector .projectorContainer_0{
+        margin-bottom: -12px;
+    }
+
+    .parent_monitoring_projector .projector_0, .parent_monitoring_projector .projector_1{
         color: #858586;
-        margin: 0 10px;
-        padding: 0 5px;
-        top: 10px;
-        display: block;
-        color: #808080;
-        font-size: 10px;
+        margin: 14px;
     }
 
-    .parent_monitoring_projector .projectorTemInput{
-        position: relative;
-        color: #858586;
-        margin: 0 10px;
-        padding: 0 10px;
-        display: block;
-        font-size: 10px;
-        height: 15px;
-        left: 65px;
-        bottom: 20px;
+    .parent_monitoring_projector .projector_0_channel span, .parent_monitoring_projector .projector_1_channel span{
+        padding-right: 40px;
     }
 
-    .parent_monitoring_projector .fa-video, .parent_monitoring_projector .fa-power-off, .parent_monitoring_projector .fa-record-vinyl,
-     .parent_monitoring_projector .fa-lightbulb, .parent_monitoring_audio .fa-volume-high, .parent_monitoring_audio .fa-volume-xmark{
+    .parent_monitoring_projector .projector_0_lamp span, .parent_monitoring_projector .projector_1_lamp span{
+        padding-right: 28px;
+    }
+
+    .parent_monitoring_projector .projector_icon{
+        margin-bottom: -10px;
+    }
+
+    .parent_monitoring_projector .projector_icon span{
         display: inline-block;
-        position: static;
         font-size: 13px;
+        margin: 2px 14px;
     }
 
     .parent_monitoring_audio .audioTem{
@@ -212,26 +238,34 @@
         bottom: 10px;
     }
 
-    .parent_monitoring_audio .audioTemTitle{
-        position: relative;
-        margin: 0 10px;
-        padding: 1px 10px;
-        top: 10px;
-        display: block;
-        color: #808080;
-        font-size: 10px;
+    .parent_monitoring_audio .audio_title{
+        margin-top: 5px;
+        margin-left: 18px;
     }
 
-    .parent_monitoring_audio .audioTemInput{
-        position: relative;
-        margin: 0 10px;
-        padding: 2px 24px;
-        display: block;
-        color: #808080;
-        font-size: 10px;
-        height: 17px;
-        left: 55px;
-        bottom: 76px;
+    .parent_monitoring_audio .audioContainer{
+        color: #858586;
+        margin: 10px;
+        margin-left: 19px;
+
+    }
+
+    .parent_monitoring_audio .audioContainer .audio_input span, .parent_monitoring_audio .audioContainer .audio_level span,
+    .parent_monitoring_audio .audioContainer .audio_mute span{
+        padding-right: 40px;
+    }
+
+    .parent_monitoring_audio .audioContainer .audio_decode span{
+        padding-right: 29px;
+    }
+
+    .parent_monitoring_audio .audioContainer .audio_format span{
+        padding-right: 32px;
+    }
+
+
+    .parent_monitoring_audio .fa-volume-high, .parent_monitoring_audio .fa-volume-xmark{
+        font-size: 13px;
     }
 
     .parent_monitoring_server .serverTem{
@@ -242,54 +276,42 @@
         font-size: 10px;
     }
 
-    .parent_monitoring_server .serverTemTitle{
-        position: relative;
-        margin: 0 10px;
-        padding: 1px 10px;
-        top: 10px;
-        display: block;
-        color: #808080;
-        font-size: 10px;
-        background: transparent;
-        border: none;
-        outline: none;
+    .parent_monitoring_server .server_title{
+        margin-top: 5px;
+        margin-left: 18px;
     }
 
-    .parent_monitoring_server .serverTemInput{
-        position: relative;
-        margin: 0 10px;
-        padding: 7px 12px;
-        display: block;
-        color: #808080;
-        font-size: 10px;
-        height: 17px;
-        left: 65px;
-        bottom: 76px;
-        background: transparent;
-        border: none;
-        outline: none;
+    .parent_monitoring_server .serverContainer{
+        color: #858586;
+        margin: 20px;
+        width: 180px;
     }
 
-    .parent_monitoring_server .serverTemInputProgress{
-        position: relative;
-        margin: 0 9px;
-        padding: 9px;
-        left: 65px;
-        bottom: 92px;
+    .parent_monitoring_server .serverContainer .server_serial span, .parent_monitoring_server .serverContainer .server_software span{
+        padding-right: 20px;
 
     }
 
-    .parent_monitoring_server .serverTemInputProgress .progress{
-        position: absolute;
-        top: 20px;
-        left: 11px;
+    .parent_monitoring_server .serverContainer .server_os span{
+        padding-right: 46px;
+    }
+
+    .parent_monitoring_server .serverContainer .server_raid span{
+        padding-right: 7px;
+    }
+
+    .parent_monitoring_server .serverContainer .server_data_usage .progress{
+        position: relative;
+        bottom: 14px;
         height: 13px;
         width: 100px;
         border-radius: 10px;
         font-weight: bold;
+        margin-left: 62px;
+        margin-bottom: -12px;
     }
 
-    .parent_monitoring_server .serverTemInputProgress .progress .progress-bar{
+    .parent_monitoring_server .server_data_usage .progress .progress-bar{
         color: black;
     }
 
@@ -319,32 +341,6 @@
         position: relative;
     }
 
-    .updateTime{
-        position: relative;
-        right: 15px;
-        background: transparent;
-        border: none;
-        outline: none;
-    }
-
-    .nextShowSpl{
-        position: relative;
-        right: 15px;
-        background: transparent;
-        border: none;
-        outline: none;
-        width: 350px;
-    }
-
-    .nextShowTime{
-        width: 80px;
-        background: transparent;
-        font-size: 12px;
-        color: #717274;
-        border: none;
-        outline: none;
-    }
-
     .ChannelLamp{
         background: transparent;
         border: none;
@@ -352,14 +348,9 @@
         width: 60px;
     }
 
-    .audioOption{
-        background: transparent;
-        border: none;
-        outline: none;
-        width: 70px;
-    }
 
-    #dropdown-toggle-select{
+
+    #parent_dropdown{
         position: relative;
         left: 180px;
         bottom: 31px;
@@ -368,6 +359,6 @@
         z-index: 100;
     }
 
-    #dropdown-toggle-select::after {
+    #parent_dropdown::after {
         content: none;
     }
